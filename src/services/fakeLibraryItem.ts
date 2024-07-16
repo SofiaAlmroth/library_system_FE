@@ -1,3 +1,5 @@
+import { Category } from "./fakeCategoryService";
+
 type BookType = "book" | "dvd" | "audiobook" | "encyclopedia";
 
 interface LibraryItem {
@@ -5,7 +7,7 @@ interface LibraryItem {
   type: BookType;
   title: string;
   isBorrowable: boolean;
-  categoryId: string;
+  category: Category;
   borrower?: string;
   borrowDate?: string;
   //   author?: string;
@@ -39,7 +41,7 @@ const exampleBook: Book = {
   author: "Author Name",
   nbrPages: 300,
   isBorrowable: true,
-  categoryId: "1", // Example categoryId for a category like "Horror"
+  category: { id: "5b21ca3eeb7f6fbccd471818", name: "Science-Fiction" },
   type: "book",
   borrower: "Sofia",
   borrowDate: new Date().toLocaleString(),
@@ -50,7 +52,7 @@ const exampleDVD: DVD = {
   title: "DVD",
   runTimeMinutes: 120,
   isBorrowable: true,
-  categoryId: "2", // Example categoryId for a category like "Action"
+  category: { id: "5b21ca3eeb7f6fbccd471814", name: "Romance" },
   type: "dvd",
   borrower: "Björn",
   borrowDate: new Date().toLocaleString(),
@@ -61,7 +63,7 @@ const exampleAudiobook: Audiobook = {
   title: "Audiobook",
   runTimeMinutes: 500,
   isBorrowable: true,
-  categoryId: "3", // Example categoryId for a category like "Feelgood"
+  category: { id: "5b21ca3eeb7f6fbccd471820", name: "Academic" },
   type: "audiobook",
 };
 
@@ -71,7 +73,7 @@ const exampleEncyclopedia: Encyclopedia = {
   author: "Author Name",
   nbrPages: 1000,
   isBorrowable: false,
-  categoryId: "4", // Example categoryId for a category like "Reference"
+  category: { id: "5b21ca3eeb7f6fbccd471852", name: "Crime Novel" },
   type: "encyclopedia",
 };
 
