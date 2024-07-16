@@ -1,4 +1,5 @@
 import { LibraryItems } from "../services/fakeLibraryItem";
+import TableHeader from "./TableHeader";
 export interface SortColumn {
   path: string;
   order: "asc" | "desc";
@@ -11,28 +12,9 @@ interface Props {
 }
 
 function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
-  function handleSort(path: string) {
-    if (path === sortColumn.path) {
-      sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
-    } else {
-      sortColumn.path = path;
-      sortColumn.order = "asc";
-    }
-    onSort({ ...sortColumn });
-  }
   return (
     <table className="table w-full">
-      <thead>
-        <tr>
-          <th onClick={() => handleSort("title")}>Book Title (BT) </th>
-          <th onClick={() => handleSort("type")}>Type</th>
-          <th onClick={() => handleSort("category")}>Category</th>
-          <th>IsBorrowable</th>
-          <th>Borrower</th>
-          <th>Borrowed Date</th>
-          <th></th>
-        </tr>
-      </thead>
+      <TableHeader onSort={onSort} sortColumn={sortColumn} />
       <tbody>
         {libraryItems.map((item) => (
           <tr key={item.id}>
