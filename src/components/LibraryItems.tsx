@@ -3,7 +3,7 @@ import _ from "lodash";
 import { getLibraryItems } from "../services/fakeLibraryItem";
 import ItemsTable, { SortColumn } from "./ItemsTable";
 
-const DEFAULT_SORTCOLUMN: SortColumn = { path: "name", order: "asc" };
+const DEFAULT_SORTCOLUMN: SortColumn = { path: "title", order: "asc" };
 
 function LibraryItems() {
   const [libraryItems, setLibraryitems] = useState(getLibraryItems());

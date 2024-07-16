@@ -27,6 +27,16 @@ function TableHeader({ onSort, sortColumn, columns }: Props) {
     }
     onSort({ ...sortColumn });
   }
+
+  function renderSortIcon(column: TextColumn) {
+    if (column.path !== sortColumn.path) return null;
+
+    if (sortColumn.order === "asc")
+      return <i className="fa-solid fa-sort-down" />;
+
+    return <i className="fa-solid fa-sort-up" />;
+  }
+
   return (
     <thead>
       <tr>
@@ -34,6 +44,7 @@ function TableHeader({ onSort, sortColumn, columns }: Props) {
           "path" in column ? (
             <th key={column.path} onClick={() => handleSort(column.path)}>
               {column.label}
+              {renderSortIcon(column)}
             </th>
           ) : (
             <th key={column.key} />
