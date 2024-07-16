@@ -7,7 +7,7 @@ interface LibraryItem {
   isBorrowable: boolean;
   categoryId: string;
   borrower?: string;
-  borrowDate?: Date;
+  borrowDate?: string;
   //   author?: string;
   //   nbrPages?: number;
   //   runTimeMinutes?: number;
@@ -41,6 +41,8 @@ const exampleBook: Book = {
   isBorrowable: true,
   categoryId: "1", // Example categoryId for a category like "Horror"
   type: "book",
+  borrower: "Sofia",
+  borrowDate: new Date().toLocaleString(),
 };
 
 const exampleDVD: DVD = {
@@ -50,6 +52,8 @@ const exampleDVD: DVD = {
   isBorrowable: true,
   categoryId: "2", // Example categoryId for a category like "Action"
   type: "dvd",
+  borrower: "Björn",
+  borrowDate: new Date().toLocaleString(),
 };
 
 const exampleAudiobook: Audiobook = {

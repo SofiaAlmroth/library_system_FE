@@ -22,8 +22,8 @@
   },
   "include": [
     "src",
-    "services/fakeFoodService.ts",
-    "services/fakeCategoryService2.ts"
+    "src/services/fakeFoodService.ts",
+    "src/services/fakeCategoryService2.ts"
   ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
