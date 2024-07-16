@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { LibraryItems } from "../services/fakeLibraryItem";
 import Table from "./Table";
 import { Column } from "./TableHeader";
@@ -15,11 +16,19 @@ interface Props {
 
 function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
   const columns: Column[] = [
-    { path: "title", label: "Title" },
-    { path: "type", label: "Type" },
     { path: "category.name", label: "Category" },
+    {
+      path: "title",
+      label: "Title",
+      content: (item) => (
+        <Link to={`/books/${item.id}`} className="link-style">
+          {item.title}
+        </Link>
+      ),
+    },
+    { path: "type", label: "Type" },
 
-    { path: "borrower", label: "Borrower" },
+    { path: "borrower", label: "Borrower Name" },
     // {
     //   key: "borrowDate",
     //   path: "borrowDate",
@@ -27,14 +36,12 @@ function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
     //   //content: (item) => <>{new Date(item.borrowDate).toLocaleDateString()}</>,
     // },
     {
-      key: "isBorrowable",
+      key: "borrower",
       content: (item: LibraryItems) => (
         <div
-          className={`badge ${
-            item.isBorrowable ? "badge-success" : "badge-error"
-          }`}
+          className={`badge ${item.borrower ? "badge-error" : "badge-success"}`}
         >
-          {item.isBorrowable ? "Borrowable" : "Not Borrowable"}
+          {!item.borrower ? "Borrow" : "Borrowed"}
         </div>
       ),
     },

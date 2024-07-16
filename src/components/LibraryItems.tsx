@@ -4,7 +4,7 @@ import { getLibraryItems } from "../services/fakeLibraryItem";
 import ItemsTable, { SortColumn } from "./ItemsTable";
 import { useNavigate } from "react-router-dom";
 
-const DEFAULT_SORTCOLUMN: SortColumn = { path: "title", order: "asc" };
+const DEFAULT_SORTCOLUMN: SortColumn = { path: "category", order: "asc" };
 
 function LibraryItems() {
   const [libraryItems, setLibraryitems] = useState(getLibraryItems());
@@ -35,7 +35,10 @@ function LibraryItems() {
             onDelete={handleDelete}
             libraryItems={sortedItems}
           />
-          <button onClick={() => navigate("/")} className="btn btn-primary">
+          <button
+            onClick={() => navigate("/books/new")}
+            className="btn btn-primary"
+          >
             Add Library Item
           </button>
         </div>

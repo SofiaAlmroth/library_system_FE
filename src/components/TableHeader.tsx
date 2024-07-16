@@ -32,9 +32,9 @@ function TableHeader({ onSort, sortColumn, columns }: Props) {
     if (column.path !== sortColumn.path) return null;
 
     if (sortColumn.order === "asc")
-      return <i className="fa-solid fa-sort-down" />;
+      return <i className="ml-1 fa-solid fa-sort-down" />;
 
-    return <i className="fa-solid fa-sort-up" />;
+    return <i className="ml-1 fa-solid fa-sort-up" />;
   }
 
   return (
@@ -42,7 +42,11 @@ function TableHeader({ onSort, sortColumn, columns }: Props) {
       <tr>
         {columns.map((column) =>
           "path" in column ? (
-            <th key={column.path} onClick={() => handleSort(column.path)}>
+            <th
+              className="text-lg"
+              key={column.path}
+              onClick={() => handleSort(column.path)}
+            >
               {column.label}
               {renderSortIcon(column)}
             </th>

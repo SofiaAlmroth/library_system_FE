@@ -1,0 +1,9 @@
+.link-style {
+  color: rgb(116, 116, 231);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.link-style:hover {
+  color: rgb(43, 43, 82);
+}
