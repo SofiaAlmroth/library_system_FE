@@ -20,6 +20,10 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": [
+    "src",
+    "services/fakeFoodService.ts",
+    "services/fakeCategoryService2.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
