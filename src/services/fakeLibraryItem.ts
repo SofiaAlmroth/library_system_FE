@@ -35,7 +35,7 @@ type LibraryItems = DVD | Book | Audiobook | Encyclopedia;
 
 const exampleBook: Book = {
   id: "1",
-  title: "Example Book",
+  title: "Book",
   author: "Author Name",
   nbrPages: 300,
   isBorrowable: true,
@@ -47,7 +47,7 @@ const exampleBook: Book = {
 
 const exampleDVD: DVD = {
   id: "2",
-  title: "Example DVD",
+  title: "DVD",
   runTimeMinutes: 120,
   isBorrowable: true,
   categoryId: "2", // Example categoryId for a category like "Action"
@@ -58,7 +58,7 @@ const exampleDVD: DVD = {
 
 const exampleAudiobook: Audiobook = {
   id: "3",
-  title: "Example Audiobook",
+  title: "Audiobook",
   runTimeMinutes: 500,
   isBorrowable: true,
   categoryId: "3", // Example categoryId for a category like "Feelgood"
@@ -67,7 +67,7 @@ const exampleAudiobook: Audiobook = {
 
 const exampleEncyclopedia: Encyclopedia = {
   id: "4",
-  title: "Example Encyclopedia",
+  title: "Encyclopedia",
   author: "Author Name",
   nbrPages: 1000,
   isBorrowable: false,
