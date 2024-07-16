@@ -17,17 +17,47 @@ function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
   const columns: Column[] = [
     { path: "title", label: "Title" },
     { path: "type", label: "Type" },
-    { path: "category", label: "Category" },
-    { path: "isBorrowable", label: "Is Borrowable" },
+    { path: "category.name", label: "Category" },
+
     { path: "borrower", label: "Borrower" },
-    { path: "borrowedDate", label: "Borrowed Date" },
-    { key: "delete" },
+    // {
+    //   key: "borrowDate",
+    //   path: "borrowDate",
+    //   label: "Borrowed Date",
+    //   //content: (item) => <>{new Date(item.borrowDate).toLocaleDateString()}</>,
+    // },
+    {
+      key: "isBorrowable",
+      content: (item: LibraryItems) => (
+        <div
+          className={`badge ${
+            item.isBorrowable ? "badge-success" : "badge-error"
+          }`}
+        >
+          {item.isBorrowable ? "Borrowable" : "Not Borrowable"}
+        </div>
+      ),
+    },
+    {
+      key: "delete",
+      content: (item: LibraryItems) => (
+        <div className="tooltip" data-tip="Delete">
+          <button onClick={() => onDelete(item.id)} className="btn btn-circle">
+            X
+          </button>
+        </div>
+      ),
+    },
   ];
 
   return (
     <table className="table w-full">
       <TableHeader columns={columns} onSort={onSort} sortColumn={sortColumn} />
-      <TableBody onDelete={onDelete} libraryItems={libraryItems} />
+      <TableBody
+        columns={columns}
+        onDelete={onDelete}
+        libraryItems={libraryItems}
+      />
     </table>
   );
 }

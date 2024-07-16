@@ -1,35 +1,25 @@
+import _ from "lodash";
 import { LibraryItems } from "../services/fakeLibraryItem";
+import { Column } from "./TableHeader";
 
 interface Props {
   libraryItems: LibraryItems[];
+  columns: Column[];
   onDelete(id: string): void;
 }
 
-function TableBody({ libraryItems, onDelete }: Props) {
+function TableBody({ libraryItems, columns }: Props) {
   return (
     <tbody>
       {libraryItems.map((item) => (
         <tr key={item.id}>
-          <td>{item.title}</td>
-          <td>{item.type}</td>
-          <td>{item.category.name}</td>
-          <td>
-            {item.isBorrowable
-              ? "Available for borrowing"
-              : "Not available for borrowing"}
-          </td>
-          <td>{item.borrower}</td>
-          <td>{item.borrowDate}</td>
-          <td>
-            <div className="tooltip" data-tip="Delete">
-              <button
-                onClick={() => onDelete(item.id)}
-                className="btn btn-circle"
-              >
-                X
-              </button>
-            </div>
-          </td>
+          {columns.map((column) =>
+            "path" in column ? (
+              <td key={column.path}>{_.get(item, column.path)}</td>
+            ) : (
+              <td key={column.key}>{column.content(item)}</td>
+            )
+          )}
         </tr>
       ))}
     </tbody>

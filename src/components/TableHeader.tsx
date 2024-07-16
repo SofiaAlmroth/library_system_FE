@@ -1,3 +1,4 @@
+import { LibraryItems } from "../services/fakeLibraryItem";
 import { SortColumn } from "./ItemsTable";
 
 interface Props {
@@ -13,6 +14,7 @@ interface TextColumn {
 }
 interface ContentColumn {
   key: string;
+  content(item: LibraryItems): JSX.Element;
 }
 
 function TableHeader({ onSort, sortColumn, columns }: Props) {
