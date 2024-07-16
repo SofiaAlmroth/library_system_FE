@@ -1,12 +1,8 @@
 import { useState } from "react";
 import _ from "lodash";
 import { getLibraryItems } from "../services/fakeLibraryItem";
-import ItemsTable from "./ItemsTable";
+import ItemsTable, { SortColumn } from "./ItemsTable";
 
-interface SortColumn {
-  path: string;
-  order: "asc" | "desc";
-}
 const DEFAULT_SORTCOLUMN: SortColumn = { path: "name", order: "asc" };
 
 function LibraryItems() {
@@ -16,16 +12,6 @@ function LibraryItems() {
   function handleDelete(id: string) {
     const newArray = libraryItems.filter((item) => item.id !== id);
     setLibraryitems(newArray);
-  }
-
-  function handleSort(path: string) {
-    if (path === sortColumn.path) {
-      sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
-    } else {
-      sortColumn.path = path;
-      sortColumn.order = "asc";
-    }
-    setSortColumn({ ...sortColumn });
   }
 
   if (libraryItems.length === 0)
@@ -43,7 +29,8 @@ function LibraryItems() {
       <div className="flex flex-col">
         <div className="overflow-x-auto">
           <ItemsTable
-            onSort={handleSort}
+            onSort={setSortColumn}
+            sortColumn={sortColumn}
             onDelete={handleDelete}
             libraryItems={sortedItems}
           />

@@ -1,19 +1,32 @@
 import { LibraryItems } from "../services/fakeLibraryItem";
-
+export interface SortColumn {
+  path: string;
+  order: "asc" | "desc";
+}
 interface Props {
   libraryItems: LibraryItems[];
-  onSort(path: string): void;
+  sortColumn: SortColumn;
+  onSort(sortColumn: SortColumn): void;
   onDelete(id: string): void;
 }
 
-function ItemsTable({ libraryItems, onSort, onDelete }: Props) {
+function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
+  function handleSort(path: string) {
+    if (path === sortColumn.path) {
+      sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
+    } else {
+      sortColumn.path = path;
+      sortColumn.order = "asc";
+    }
+    onSort({ ...sortColumn });
+  }
   return (
     <table className="table w-full">
       <thead>
         <tr>
-          <th onClick={() => onSort("title")}>Book Title (BT) </th>
-          <th onClick={() => onSort("type")}>Type</th>
-          <th onClick={() => onSort("category")}>Category</th>
+          <th onClick={() => handleSort("title")}>Book Title (BT) </th>
+          <th onClick={() => handleSort("type")}>Type</th>
+          <th onClick={() => handleSort("category")}>Category</th>
           <th>IsBorrowable</th>
           <th>Borrower</th>
           <th>Borrowed Date</th>
