@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { LibraryItems } from "../services/fakeLibraryItem";
 import Table from "./Table";
 import { Column } from "./TableHeader";
+import { LibraryItems } from "../services/fakeLibraryItem";
 
 export interface SortColumn {
   path: string;
@@ -14,9 +14,12 @@ interface Props {
   onDelete(id: string): void;
 }
 
+function checkInBook(id: string) {
+  console.log("Checking in book with ID:", id);
+}
+
 function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
   const columns: Column[] = [
-    { path: "category.name", label: "Category" },
     {
       path: "title",
       label: "Title",
@@ -27,29 +30,77 @@ function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
       ),
     },
     { path: "type", label: "Type" },
-
-    { path: "borrower", label: "Borrower Name" },
-    // {
-    //   key: "borrowDate",
-    //   path: "borrowDate",
-    //   label: "Borrowed Date",
-    //   //content: (item) => <>{new Date(item.borrowDate).toLocaleDateString()}</>,
-    // },
+    { path: "category.name", label: "Category" },
     {
-      key: "borrower",
-      content: (item: LibraryItems) => (
-        <div
-          className={`badge ${item.borrower ? "badge-error" : "badge-success"}`}
-        >
-          {!item.borrower ? "Borrow" : "Borrowed"}
-        </div>
-      ),
+      path: "author",
+      label: "Author",
+      content: (item) =>
+        item.author ? <span>{item.author}</span> : <span>-</span>,
     },
+    {
+      path: "nbrPages",
+      label: "Pages/Runtime",
+      content: (item) =>
+        item.nbrPages ? (
+          <span>{`${item.nbrPages} pages`}</span>
+        ) : item.runTimeMinutes ? (
+          <span>{`${item.runTimeMinutes} mins`}</span>
+        ) : (
+          <span>-</span>
+        ),
+    },
+    {
+      path: "borrowDetails",
+      label: "Borrow Details",
+      content: (item: LibraryItems) => {
+        if (!item.borrower) {
+          return <div className="badge badge-success">Not Borrowed</div>;
+        } else {
+          return (
+            <>
+              <div>{item.borrower}</div>
+              <div>
+                {item.borrowDate && item.borrowDate.toLocaleDateString()}
+              </div>
+            </>
+          );
+        }
+      },
+    },
+
+    {
+      key: "actions",
+      content: (item: LibraryItems) => {
+        if (item.borrower) {
+          return (
+            <button
+              onClick={() => checkInBook(item.id)}
+              className="btn btn-secondary w-24 btn-sm"
+            >
+              Check In
+            </button>
+          );
+        } else {
+          return (
+            <button
+              onClick={() => console.log(item)}
+              className="btn btn-secondary w-24 btn-sm"
+            >
+              Check Out
+            </button>
+          );
+        }
+      },
+    },
+
     {
       key: "delete",
       content: (item: LibraryItems) => (
         <div className="tooltip" data-tip="Delete">
-          <button onClick={() => onDelete(item.id)} className="btn btn-circle">
+          <button
+            onClick={() => onDelete(item.id)}
+            className="btn btn-circle btn-error"
+          >
             X
           </button>
         </div>
