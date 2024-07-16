@@ -31,7 +31,7 @@ interface Encyclopedia extends LibraryItem {
   isBorrowable: false;
 }
 
-type LibraryItems = DVD | Book | Audiobook | Encyclopedia;
+export type LibraryItems = DVD | Book | Audiobook | Encyclopedia;
 
 const exampleBook: Book = {
   id: "1",
