@@ -5,7 +5,6 @@ import { Column } from "./TableHeader";
 interface Props {
   libraryItems: LibraryItems[];
   columns: Column[];
-  onDelete(id: string): void;
 }
 
 function TableBody({ libraryItems, columns }: Props) {

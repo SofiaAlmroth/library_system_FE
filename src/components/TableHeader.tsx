@@ -6,7 +6,6 @@ interface Props {
   columns: Column[];
   onSort(sortColumn: SortColumn): void;
 }
-export type Column = TextColumn | ContentColumn;
 
 interface TextColumn {
   path: string;
@@ -16,6 +15,7 @@ interface ContentColumn {
   key: string;
   content(item: LibraryItems): JSX.Element;
 }
+export type Column = TextColumn | ContentColumn;
 
 function TableHeader({ onSort, sortColumn, columns }: Props) {
   function handleSort(path: string) {

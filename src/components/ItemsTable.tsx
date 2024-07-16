@@ -1,6 +1,6 @@
 import { LibraryItems } from "../services/fakeLibraryItem";
-import TableBody from "./TableBody";
-import TableHeader, { Column } from "./TableHeader";
+import Table from "./Table";
+import { Column } from "./TableHeader";
 
 export interface SortColumn {
   path: string;
@@ -51,14 +51,12 @@ function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
   ];
 
   return (
-    <table className="table w-full">
-      <TableHeader columns={columns} onSort={onSort} sortColumn={sortColumn} />
-      <TableBody
-        columns={columns}
-        onDelete={onDelete}
-        libraryItems={libraryItems}
-      />
-    </table>
+    <Table
+      columns={columns}
+      libraryItems={libraryItems}
+      onSort={onSort}
+      sortColumn={sortColumn}
+    />
   );
 }
 
