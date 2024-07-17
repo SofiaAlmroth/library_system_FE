@@ -4,6 +4,8 @@ import LibraryItemsPage from "./components/pages/LibraryItemsPage";
 import LibraryItemFormPage from "./components/pages/LibraryItemFormPage";
 import CategoriesPage from "./components/pages/CategoriesPage";
 import CategoryFormPage from "./components/pages/CategoryFormPage";
+import LoginPage from "./components/pages/LoginPage";
+import RegisterPage from "./components/pages/RegisterPage";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +18,8 @@ const router = createBrowserRouter([
       { path: "/categories/:id", element: <CategoryFormPage /> },
     ],
   },
+  { path: "/login", element: <LoginPage /> },
+  { path: "/register", element: <RegisterPage /> },
 ]);
 
 export default router;

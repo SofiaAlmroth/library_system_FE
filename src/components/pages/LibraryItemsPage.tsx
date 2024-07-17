@@ -27,7 +27,7 @@ function LibraryItemsPage() {
   return (
     <>
       <div className="flex flex-col">
-        <div className="m-6">
+        <div className="m-6 mt-12">
           <ItemsTable
             onSort={setSortColumn}
             sortColumn={sortColumn}
