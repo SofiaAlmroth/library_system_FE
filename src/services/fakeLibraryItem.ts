@@ -123,6 +123,8 @@ const libraryItems: LibraryItems[] = [
     nbrPages: 300,
     isBorrowable: true,
     category: { id: "5b21ca3eeb7f6fbccd471820", name: "Academic" },
+    borrower: "Sofia Almroth",
+    borrowDate: new Date(),
   },
 
   {
@@ -132,6 +134,8 @@ const libraryItems: LibraryItems[] = [
     runTimeMinutes: 120,
     isBorrowable: true,
     category: { id: "5b21ca3eeb7f6fbccd471852", name: "Crime Novel" },
+    borrower: "Björn Hultqvist",
+    borrowDate: new Date(),
   },
 
   {

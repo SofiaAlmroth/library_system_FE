@@ -1,16 +1,19 @@
 import _ from "lodash";
-import { LibraryItems } from "../services/fakeLibraryItem";
 import { Column } from "./TableHeader";
 
-interface Props {
-  libraryItems: LibraryItems[];
-  columns: Column[];
+export interface Id {
+  id: string;
 }
 
-function TableBody({ libraryItems, columns }: Props) {
+interface Props<T extends Id> {
+  items: T[];
+  columns: Column<T>[];
+}
+
+function TableBody<T extends Id>({ items, columns }: Props<T>) {
   return (
     <tbody>
-      {libraryItems.map((item) => (
+      {items.map((item) => (
         <tr key={item.id}>
           {columns.map((column) =>
             "content" in column ? (

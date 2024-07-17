@@ -1,9 +1,8 @@
-import { LibraryItems } from "../services/fakeLibraryItem";
 import { SortColumn } from "./ItemsTable";
 
-interface Props {
+interface Props<T> {
   sortColumn: SortColumn;
-  columns: Column[];
+  columns: Column<T>[];
   onSort(sortColumn: SortColumn): void;
 }
 
@@ -11,13 +10,13 @@ interface TextColumn {
   path: string;
   label: string;
 }
-interface ContentColumn {
+interface ContentColumn<T> {
   key: string;
-  content(item: LibraryItems): JSX.Element;
+  content(item: T): JSX.Element;
 }
-export type Column = TextColumn | ContentColumn;
+export type Column<T> = TextColumn | ContentColumn<T>;
 
-function TableHeader({ onSort, sortColumn, columns }: Props) {
+function TableHeader<T>({ onSort, sortColumn, columns }: Props<T>) {
   function handleSort(path: string) {
     if (path === sortColumn.path) {
       sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";

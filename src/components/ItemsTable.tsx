@@ -19,7 +19,7 @@ function checkInBook(id: string) {
 }
 
 function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
-  const columns: Column[] = [
+  const columns: Column<LibraryItems>[] = [
     {
       path: "title",
       label: "Title",
@@ -42,11 +42,11 @@ function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
       label: "Pages/Runtime",
       content: (item) =>
         item.nbrPages ? (
-          <span>{`${item.nbrPages} pages`}</span>
+          <>{`${item.nbrPages} pages`}</>
         ) : item.runTimeMinutes ? (
-          <span>{`${item.runTimeMinutes} mins`}</span>
+          <>{`${item.runTimeMinutes} mins`}</>
         ) : (
-          <span>-</span>
+          <>-</>
         ),
     },
     {
@@ -58,7 +58,7 @@ function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
         } else {
           return (
             <>
-              <div>{item.borrower}</div>
+              <div>{`${item.borrower}`}</div>
               <div>
                 {item.borrowDate && item.borrowDate.toLocaleDateString()}
               </div>
@@ -71,6 +71,7 @@ function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
     {
       key: "actions",
       content: (item: LibraryItems) => {
+        if (!item.isBorrowable) return <p>Not Borrowable</p>;
         if (item.borrower) {
           return (
             <button
@@ -99,7 +100,7 @@ function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
         <div className="tooltip" data-tip="Delete">
           <button
             onClick={() => onDelete(item.id)}
-            className="btn btn-circle btn-error"
+            className="btn btn-circle btn-error btn-sm"
           >
             X
           </button>
@@ -111,7 +112,7 @@ function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
   return (
     <Table
       columns={columns}
-      libraryItems={libraryItems}
+      items={libraryItems}
       onSort={onSort}
       sortColumn={sortColumn}
     />

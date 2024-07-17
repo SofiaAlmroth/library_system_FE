@@ -2,14 +2,13 @@ import { useState } from "react";
 import _ from "lodash";
 import { getLibraryItems } from "../services/fakeLibraryItem";
 import ItemsTable, { SortColumn } from "./ItemsTable";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const DEFAULT_SORTCOLUMN: SortColumn = { path: "category", order: "asc" };
 
 function LibraryItems() {
   const [libraryItems, setLibraryitems] = useState(getLibraryItems());
   const [sortColumn, setSortColumn] = useState(DEFAULT_SORTCOLUMN);
-  const navigate = useNavigate();
 
   function handleDelete(id: string) {
     const newArray = libraryItems.filter((item) => item.id !== id);
@@ -35,12 +34,9 @@ function LibraryItems() {
             onDelete={handleDelete}
             libraryItems={sortedItems}
           />
-          <button
-            onClick={() => navigate("/books/new")}
-            className="btn btn-primary"
-          >
+          <Link to="/books/new" className="btn btn-primary mt-4">
             Add Library Item
-          </button>
+          </Link>
         </div>
       </div>
     </>
