@@ -6,11 +6,13 @@ import CategoriesPage from "./components/pages/CategoriesPage";
 import CategoryFormPage from "./components/pages/CategoryFormPage";
 import LoginPage from "./components/pages/LoginPage";
 import RegisterPage from "./components/pages/RegisterPage";
+import NotFoundPage from "./components/pages/NotFoundPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <NotFoundPage />,
     children: [
       { path: "/books", element: <LibraryItemsPage /> },
       { path: "/books/:id", element: <LibraryItemFormPage /> },
