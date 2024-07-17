@@ -24,9 +24,11 @@ function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
       path: "title",
       label: "Title",
       content: (item) => (
-        <Link to={`/books/${item.id}`} className="link-style">
-          {item.title}
-        </Link>
+        <div className="tooltip" data-tip="Update">
+          <Link to={`/books/${item.id}`} className="link-style">
+            {item.title}
+          </Link>
+        </div>
       ),
     },
     { path: "type", label: "Type" },
@@ -74,21 +76,25 @@ function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
         if (!item.isBorrowable) return <p>Not Borrowable</p>;
         if (item.borrower) {
           return (
-            <button
-              onClick={() => checkInBook(item.id)}
-              className="btn btn-secondary w-24 btn-sm"
-            >
-              Check In
-            </button>
+            <div className="tooltip" data-tip="Return">
+              <button
+                onClick={() => checkInBook(item.id)}
+                className="btn btn-secondary w-24 btn-sm"
+              >
+                Check In
+              </button>
+            </div>
           );
         } else {
           return (
-            <button
-              onClick={() => console.log(item)}
-              className="btn btn-secondary w-24 btn-sm"
-            >
-              Check Out
-            </button>
+            <div className="tooltip" data-tip="Borrow">
+              <button
+                onClick={() => console.log(item)}
+                className="btn btn-secondary w-24 btn-sm"
+              >
+                Check Out
+              </button>
+            </div>
           );
         }
       },

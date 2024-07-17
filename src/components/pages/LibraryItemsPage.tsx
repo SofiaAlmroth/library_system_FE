@@ -1,12 +1,12 @@
 import { useState } from "react";
 import _ from "lodash";
-import { getLibraryItems } from "../services/fakeLibraryItem";
-import ItemsTable, { SortColumn } from "./ItemsTable";
+import { getLibraryItems } from "../../services/fakeLibraryItem";
+import ItemsTable, { SortColumn } from "../ItemsTable";
 import { Link } from "react-router-dom";
 
 const DEFAULT_SORTCOLUMN: SortColumn = { path: "category", order: "asc" };
 
-function LibraryItems() {
+function LibraryItemsPage() {
   const [libraryItems, setLibraryitems] = useState(getLibraryItems());
   const [sortColumn, setSortColumn] = useState(DEFAULT_SORTCOLUMN);
 
@@ -34,7 +34,7 @@ function LibraryItems() {
             onDelete={handleDelete}
             libraryItems={sortedItems}
           />
-          <Link to="/books/new" className="btn btn-primary mt-4">
+          <Link to="/categories/new" className="btn btn-primary mt-4">
             Add Library Item
           </Link>
         </div>
@@ -43,4 +43,4 @@ function LibraryItems() {
   );
 }
 
-export default LibraryItems;
+export default LibraryItemsPage;

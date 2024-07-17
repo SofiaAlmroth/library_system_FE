@@ -1,17 +1,19 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import LibraryItems from "./components/LibraryItems";
-import LibraryItemFormPage from "./components/LibraryItemFormPage";
-import CategoriesPage from "./components/CategoriesPage";
+import LibraryItemsPage from "./components/pages/LibraryItemsPage";
+import LibraryItemFormPage from "./components/pages/LibraryItemFormPage";
+import CategoriesPage from "./components/pages/CategoriesPage";
+import CategoryFormPage from "./components/pages/CategoryFormPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
-      { path: "/books", element: <LibraryItems /> },
+      { path: "/books", element: <LibraryItemsPage /> },
       { path: "/books/:id", element: <LibraryItemFormPage /> },
       { path: "/categories", element: <CategoriesPage /> },
+      { path: "/categories/:id", element: <CategoryFormPage /> },
     ],
   },
 ]);
