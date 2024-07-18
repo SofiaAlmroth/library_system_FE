@@ -14,10 +14,6 @@ interface Props {
   onDelete(id: string): void;
 }
 
-function checkInBook(id: string) {
-  console.log("Checking in book with ID:", id);
-}
-
 function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
   const columns: Column<LibraryItems>[] = [
     {
@@ -25,7 +21,7 @@ function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
       label: "Title",
       content: (item) => (
         <div className="tooltip" data-tip="Update">
-          <Link to={`/books/${item.id}`} className="link-style">
+          <Link to={`/books/${item.id}`} className="link-style ">
             {item.title}
           </Link>
         </div>
@@ -56,7 +52,7 @@ function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
       label: "Borrow Details",
       content: (item: LibraryItems) => {
         if (!item.borrower) {
-          return <div className="badge badge-success">Not Borrowed</div>;
+          return <div>-</div>;
         } else {
           return (
             <>
@@ -70,35 +66,35 @@ function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
       },
     },
 
-    {
-      key: "actions",
-      content: (item: LibraryItems) => {
-        if (!item.isBorrowable) return <p>Not Borrowable</p>;
-        if (item.borrower) {
-          return (
-            <div className="tooltip" data-tip="Return">
-              <button
-                onClick={() => checkInBook(item.id)}
-                className="btn btn-secondary w-24 btn-sm"
-              >
-                Check In
-              </button>
-            </div>
-          );
-        } else {
-          return (
-            <div className="tooltip" data-tip="Borrow">
-              <button
-                onClick={() => console.log(item)}
-                className="btn btn-secondary w-24 btn-sm"
-              >
-                Check Out
-              </button>
-            </div>
-          );
-        }
-      },
-    },
+    // {
+    //   key: "actions",
+    //   content: (item: LibraryItems) => {
+    //     if (!item.isBorrowable) return <p>Not Borrowable</p>;
+    //     if (item.borrower) {
+    //       return (
+    //         <div className="tooltip" data-tip="Return">
+    //           <button
+    //             onClick={() => checkInBook(item.id)}
+    //             className="btn btn-secondary w-24 btn-sm"
+    //           >
+    //             Check In
+    //           </button>
+    //         </div>
+    //       );
+    //     } else {
+    //       return (
+    //         <div className="tooltip" data-tip="Borrow">
+    //           <button
+    //             onClick={() => console.log(item)}
+    //             className="btn btn-secondary w-24 btn-sm"
+    //           >
+    //             Check Out
+    //           </button>
+    //         </div>
+    //       );
+    //     }
+    //   },
+    // },
 
     {
       key: "delete",

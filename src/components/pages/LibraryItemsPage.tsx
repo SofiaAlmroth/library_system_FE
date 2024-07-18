@@ -26,7 +26,7 @@ function LibraryItemsPage() {
 
   return (
     <>
-      <div className="flex flex-col">
+      <div className="flex flex-col ">
         <div className="m-6 mt-12">
           <ItemsTable
             onSort={setSortColumn}
@@ -34,7 +34,7 @@ function LibraryItemsPage() {
             onDelete={handleDelete}
             libraryItems={sortedItems}
           />
-          <Link to="/categories/new" className="btn btn-primary mt-4">
+          <Link to="/books/new" className="btn btn-primary mt-4">
             Add Library Item
           </Link>
         </div>
