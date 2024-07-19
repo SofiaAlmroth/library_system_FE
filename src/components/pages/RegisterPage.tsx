@@ -14,6 +14,7 @@ type FormData = z.infer<typeof schema>;
 
 function RegisterPage() {
   const {
+    setError,
     register,
     handleSubmit,
     formState: { errors, isValid },
@@ -22,12 +23,18 @@ function RegisterPage() {
 
   async function onSubmit(data: FormData) {
     console.log("Submittet", data);
-    await user.register(data);
-    navigate("/books");
+    try {
+      await user.register(data);
+      navigate("/books");
+    } catch (error: any) {
+      if (error.response.status === 400) {
+        setError("email", { message: error.response.data });
+      }
+    }
   }
   return (
     <div className="flex flex-col min-h-screen justify-center items-center ">
-      <h1 className="text-5xl font-bold mb-5">Login</h1>
+      <h1 className="text-5xl font-bold mb-5">Register</h1>
       <div className="card shrink-0 w-full max-w-lg shadow-2xl bg-base-100">
         <form onSubmit={handleSubmit(onSubmit)} className="card-body">
           <div className="form-control">
@@ -40,9 +47,6 @@ function RegisterPage() {
               placeholder="name"
               className="input input-bordered"
             />
-            {errors.email && (
-              <p className="text-error p-1">{errors.name?.message}</p>
-            )}
           </div>
 
           <div className="form-control">
