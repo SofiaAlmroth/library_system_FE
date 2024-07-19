@@ -4,12 +4,12 @@ import {
   deleteLibraryItem,
   getLibraryItems,
   LibraryItem,
-} from "../../services/fakeLibraryItem";
+} from "../../services/libraryItemService";
 import ItemsTable, { SortColumn } from "../ItemsTable";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const DEFAULT_SORTCOLUMN: SortColumn = { path: "category", order: "asc" };
+const DEFAULT_SORTCOLUMN: SortColumn = { path: "category.name", order: "asc" };
 
 function LibraryItemsPage() {
   const [libraryItems, setLibraryitems] = useState<LibraryItem[]>([]);
@@ -39,8 +39,8 @@ function LibraryItemsPage() {
     }
   }
 
-  if (libraryItems.length === 0)
-    return <p className="m-6">There are no books in the database</p>;
+  // if (libraryItems.length === 0)
+  //   return <p className="m-6">There are no books in the database</p>;
 
   const sortedItems = _.orderBy(
     libraryItems,

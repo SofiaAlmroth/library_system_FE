@@ -1,7 +1,8 @@
 import { z } from "zod";
-import { useForm, FieldValues } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
+import auth from "../../services/authService";
 
 const schema = z.object({
   email: z.string().min(1, { message: "Email is required" }),
@@ -18,9 +19,12 @@ function LoginPage() {
   } = useForm<FormData>({ resolver: zodResolver(schema), mode: "onChange" });
   const navigate = useNavigate();
 
-  function onSubmit(data: FieldValues) {
+  async function onSubmit(data: FormData) {
     console.log("Submittet", data);
-    navigate("/books");
+    const { data: jwt } = await auth.login(data);
+    console.log(jwt);
+
+    //navigate("/books");
   }
   return (
     <div className="flex flex-col min-h-screen justify-center items-center ">

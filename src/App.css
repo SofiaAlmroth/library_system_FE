@@ -2,6 +2,8 @@
   color: rgb(116, 116, 231);
   text-decoration: underline;
   cursor: pointer;
+  text-align: left;
+  display: inline-block;
 }
 
 .link-style:hover {

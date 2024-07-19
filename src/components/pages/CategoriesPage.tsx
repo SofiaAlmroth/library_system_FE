@@ -3,7 +3,7 @@ import {
   Category,
   deleteCategory,
   getCategories,
-} from "../../services/fakeCategoryService";
+} from "../../services/categoryService";
 import { Link } from "react-router-dom";
 import { Column } from "../TableHeader";
 import { SortColumn } from "../ItemsTable";
@@ -36,7 +36,9 @@ function CategoriesPage() {
       await deleteCategory(id);
     } catch (error) {
       console.log("Failed to delete the category", error);
-      toast.error("Failed to delete the category");
+      toast.error(
+        "Failed to delete the category, because it contains library items"
+      );
       setCategories(originalArray);
     }
   }
@@ -80,7 +82,7 @@ function CategoriesPage() {
             sortColumn={sortColumn}
           />
           <Link to="/categories/new" className="btn btn-primary mt-4">
-            Add Library Item
+            Add Category
           </Link>
         </div>
       </div>

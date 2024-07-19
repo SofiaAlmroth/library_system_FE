@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Table from "./Table";
 import { Column } from "./TableHeader";
-import { LibraryItem } from "../services/fakeLibraryItem";
+import { LibraryItem } from "../services/libraryItemService";
 
 export interface SortColumn {
   path: string;
@@ -27,8 +27,8 @@ function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
         </div>
       ),
     },
-    { path: "type", label: "Type" },
     { path: "category.name", label: "Category" },
+    { path: "type", label: "Type" },
     {
       path: "author",
       label: "Author",
@@ -57,7 +57,11 @@ function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
           return (
             <>
               <div>{`${item.borrower}`}</div>
-              <div>{item.borrowDate && item.borrowDate.toString()}</div>
+              <div>
+                {item.borrowDate
+                  ? new Date(item.borrowDate).toLocaleDateString()
+                  : null}
+              </div>
             </>
           );
         }
@@ -90,33 +94,3 @@ function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
 }
 
 export default ItemsTable;
-
-// {
-//   key: "actions",
-//   content: (item: LibraryItems) => {
-//     if (!item.isBorrowable) return <p>Not Borrowable</p>;
-//     if (item.borrower) {
-//       return (
-//         <div className="tooltip" data-tip="Return">
-//           <button
-//             onClick={() => checkInBook(item.id)}
-//             className="btn btn-secondary w-24 btn-sm"
-//           >
-//             Check In
-//           </button>
-//         </div>
-//       );
-//     } else {
-//       return (
-//         <div className="tooltip" data-tip="Borrow">
-//           <button
-//             onClick={() => console.log(item)}
-//             className="btn btn-secondary w-24 btn-sm"
-//           >
-//             Check Out
-//           </button>
-//         </div>
-//       );
-//     }
-//   },
-// },

@@ -1,11 +1,11 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { Category, getCategories } from "../../services/fakeCategoryService";
+import { Category, getCategories } from "../../services/categoryService";
 import { useEffect, useState } from "react";
 import {
   getLibraryItem,
   LibraryItem,
   saveLibraryItem,
-} from "../../services/fakeLibraryItem";
+} from "../../services/libraryItemService";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,10 +15,10 @@ const schema = z.object({
   title: z.string().min(1, { message: "Title is required" }),
   categoryId: z.string().min(1, { message: "Category is required" }),
   type: z.union([
-    z.literal("book"),
-    z.literal("audiobook"),
-    z.literal("encyclopedia"),
-    z.literal("dvd"),
+    z.literal("NOVEL"),
+    z.literal("AUDIOBOOK"),
+    z.literal("ENCYCLOPEDIA"),
+    z.literal("DVD"),
   ]),
   author: z.string().optional(),
   nbrPages: z.coerce
@@ -29,16 +29,16 @@ const schema = z.object({
     .number()
     .gt(0, { message: "Pages/Runtime is required" })
     .optional(),
-  isBorrowable: z.boolean().default(false),
+  isBorrowable: z.boolean().optional(),
   borrower: z.string().optional(),
   borrowDate: z.date().optional(),
 });
 
 type FormData = z.infer<typeof schema>;
 
-type ItemType = "dvd" | "book" | "audiobook" | "encyclopedia";
+type ItemType = "DVD" | "NOVEL" | "AUDIOBOOK" | "ENCYCLOPEDIA";
 
-const itemTypes: ItemType[] = ["dvd", "book", "audiobook", "encyclopedia"];
+const itemTypes: ItemType[] = ["DVD", "NOVEL", "AUDIOBOOK", "ENCYCLOPEDIA"];
 
 function LibraryItemFormPage() {
   const { id } = useParams();
@@ -75,15 +75,17 @@ function LibraryItemFormPage() {
   function mapToFormData(libraryItem: LibraryItem): FormData {
     return {
       id: libraryItem.id,
+      type: libraryItem.type as ItemType,
       title: libraryItem.title,
-      author: libraryItem.author,
-      isBorrowable: libraryItem.isBorrowable,
       categoryId: libraryItem.category.id,
-      type: libraryItem.type,
-      nbrPages: libraryItem.nbrPages,
-      runTimeMinutes: libraryItem.runTimeMinutes,
-      borrower: libraryItem.borrower,
-      borrowDate: libraryItem.borrowDate,
+      author: libraryItem.author || "",
+      isBorrowable: libraryItem.isBorrowable || false,
+      borrower: libraryItem.borrower || "",
+      borrowDate: libraryItem.borrowDate
+        ? new Date(libraryItem.borrowDate)
+        : undefined,
+      nbrPages: libraryItem.nbrPages || undefined,
+      runTimeMinutes: libraryItem.runTimeMinutes || undefined,
     };
   }
 
@@ -157,7 +159,7 @@ function LibraryItemFormPage() {
           </label>
 
           {/* Author Field */}
-          {selectedType === "book" || selectedType === "encyclopedia" ? (
+          {selectedType === "NOVEL" || selectedType === "ENCYCLOPEDIA" ? (
             <div className="mb-3 form-control">
               <label className="label">
                 <span className="label-text">Author</span>
@@ -174,7 +176,7 @@ function LibraryItemFormPage() {
           ) : null}
 
           {/* Pages Field */}
-          {selectedType === "book" || selectedType === "encyclopedia" ? (
+          {selectedType === "NOVEL" || selectedType === "ENCYCLOPEDIA" ? (
             <div className="mb-3 form-control">
               <label className="label">
                 <span className="label-text">Pages</span>
@@ -191,7 +193,7 @@ function LibraryItemFormPage() {
           ) : null}
 
           {/* Runtime Field */}
-          {selectedType === "dvd" || selectedType === "audiobook" ? (
+          {selectedType === "DVD" || selectedType === "AUDIOBOOK" ? (
             <div className="mb-3 form-control">
               <label className="label">
                 <span className="label-text">Runtime</span>
@@ -210,21 +212,18 @@ function LibraryItemFormPage() {
           ) : null}
 
           {/* Is Borrowable Field */}
-          {selectedType !== "encyclopedia" && (
-            <div className="mb-3 form-control">
-              <label className="label cursor-pointer">
-                <span className="label-text">Borrowable</span>
-                <input
-                  {...register("isBorrowable")}
-                  type="checkbox"
-                  className="checkbox"
-                />
-              </label>
+          {selectedType === "ENCYCLOPEDIA" ? (
+            <div>
+              <div className="badge badge-error text-white">Not Borrowable</div>
+            </div>
+          ) : (
+            <div>
+              <div className="badge badge-success">Borrowable</div>
             </div>
           )}
 
           {/* Borrower Field */}
-          {selectedType !== "encyclopedia" && (
+          {selectedType !== "ENCYCLOPEDIA" && (
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Borrowed By</span>
@@ -236,22 +235,6 @@ function LibraryItemFormPage() {
               />
             </div>
           )}
-
-          {/* <div>
-            {!isBorrowed && (
-              <button type="button" className="btn btn-primary btn-sm mt-3">
-                Check Out
-              </button>
-            )}
-            {isBorrowed && (
-              <button
-                type="button"
-                className="btn btn-secondary btn-sm  mt-3 ml-2"
-              >
-                Check In
-              </button>
-            )}
-          </div> */}
 
           <button
             type="submit"

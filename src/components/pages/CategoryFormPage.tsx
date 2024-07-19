@@ -6,7 +6,7 @@ import {
   Category,
   getCategory,
   saveCategory,
-} from "../../services/fakeCategoryService";
+} from "../../services/categoryService";
 import { useEffect } from "react";
 
 const schema = z.object({
