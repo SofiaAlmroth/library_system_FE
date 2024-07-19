@@ -1,25 +1,44 @@
-import { useState } from "react";
-import { Category, getCategories } from "../../services/fakeCategoryService";
+import { useEffect, useState } from "react";
+import {
+  Category,
+  deleteCategory,
+  getCategories,
+} from "../../services/fakeCategoryService";
+import { Link } from "react-router-dom";
 import { Column } from "../TableHeader";
 import { SortColumn } from "../ItemsTable";
+import { toast } from "react-toastify";
 import Table from "../Table";
-import { Link, useNavigate } from "react-router-dom";
-import { getLibraryItems } from "../../services/fakeLibraryItem";
 
 const DEFAULT_SORTCOLUMN: SortColumn = { path: "category", order: "asc" };
 
 function CategoriesPage() {
-  const [categories, setCategories] = useState(getCategories());
+  const [categories, setCategories] = useState<Category[]>([]);
   const [sortColumn, setSortColumn] = useState(DEFAULT_SORTCOLUMN);
-  const [libraryItems, setLibraryItems] = useState(getLibraryItems());
-  const navigate = useNavigate();
 
-  function handleDelete(id: string) {
+  useEffect(() => {
+    async function fetch() {
+      const { data: categories } = await getCategories();
+      setCategories(categories);
+    }
+
+    fetch();
+  }, []);
+
+  async function handleDelete(id: string) {
     // const categoryInUse = libraryItems.some((item) => item.category.id === id);
     // if (categoryInUse) return console.log("cannot delete category");
-
+    const originalArray = categories;
     const newArray = categories.filter((category) => category.id !== id);
     setCategories(newArray);
+
+    try {
+      await deleteCategory(id);
+    } catch (error) {
+      console.log("Failed to delete the category", error);
+      toast.error("Failed to delete the category");
+      setCategories(originalArray);
+    }
   }
 
   const columns: Column<Category>[] = [
@@ -35,19 +54,6 @@ function CategoriesPage() {
       ),
     },
 
-    // {
-    //   key: "edit",
-    //   content: (category: Category) => (
-    //     <div className="tooltip" data-tip="Edit">
-    //       <button
-    //         onClick={() => navigate(`/categories/${category.id}`)}
-    //         className="btn  btn-primary btn-sm"
-    //       >
-    //         Edit
-    //       </button>
-    //     </div>
-    //   ),
-    // },
     {
       key: "delete",
       content: (category: Category) => (

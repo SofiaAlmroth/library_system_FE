@@ -1,8 +1,10 @@
-import { Category, getCategories } from "./fakeCategoryService";
+import { Category } from "./fakeCategoryService";
+import axios from "axios";
 
-export interface LibraryItems {
+export type BookType = "dvd" | "book" | "audiobook" | "encyclopedia";
+export interface LibraryItem {
   id: string;
-  type: ItemsType;
+  type: BookType;
   title: string;
   category: Category;
   isBorrowable: boolean;
@@ -15,7 +17,7 @@ export interface LibraryItems {
 
 export interface LibraryFormData {
   id?: string;
-  type: ItemsType;
+  type: BookType;
   title: string;
   categoryId: string;
   isBorrowable: boolean;
@@ -26,101 +28,73 @@ export interface LibraryFormData {
   runTimeMinutes?: number;
 }
 
-export enum ItemsType {
-  DVD = "dvd",
-  Book = "book",
-  Audiobook = "audiobook",
-  Encyclopedia = "encyclopedia",
-}
+// const libraryItems: LibraryItems[] = [
+//   {
+//     id: "1",
+//     type: "book",
+//     title: "Example Book",
+//     author: "Author Name",
+//     nbrPages: 300,
+//     isBorrowable: true,
+//     category: { id: "5b21ca3eeb7f6fbccd471820", name: "Academic" },
+//     borrower: "Sofia Almroth",
+//     borrowDate: new Date(),
+//   },
 
-export const itemTypes: ItemsType[] = Object.values(ItemsType);
+//   {
+//     id: "2",
+//     type: "dvd",
+//     title: "Example DVD",
+//     runTimeMinutes: 120,
+//     isBorrowable: true,
+//     category: { id: "5b21ca3eeb7f6fbccd471852", name: "Crime Novel" },
+//     borrower: "Björn Hultqvist",
+//     borrowDate: new Date(),
+//   },
+
+//   {
+//     id: "3",
+//     type: "audiobook",
+//     title: "Example Audiobook",
+//     runTimeMinutes: 500,
+//     isBorrowable: true,
+//     category: { id: "5b21ca3eeb7f6fbccd471814", name: "Romance" },
+//   },
+
+//   {
+//     id: "4",
+//     type: "encyclopedia",
+//     title: "Example Encyclopedia",
+//     author: "Author Name",
+//     nbrPages: 1000,
+//     isBorrowable: false,
+//     category: { id: "5b21ca3eeb7f6fbccd471818", name: "Science-Fiction" },
+//   },
+// ];
 
 export function getLibraryItems() {
-  return libraryItems;
+  return axios.get<LibraryItem[]>("http://localhost:5588/api/libraryItems");
 }
 
 export function getLibraryItem(id: string) {
-  return libraryItems.find((l) => l.id === id);
+  return axios.get<LibraryItem>("http://localhost:5588/api/libraryItems/" + id);
 }
 export function saveLibraryItem(libraryItem: LibraryFormData) {
-  const categoryInDb = getCategories().find(
-    (category) => category.id === libraryItem.categoryId
+  if (libraryItem.id)
+    return axios.put<LibraryItem>(
+      "http://localhost:5588/api/libraryItems/" + libraryItem.id,
+      libraryItem
+    );
+
+  return axios.post<LibraryItem>(
+    "http://localhost:5588/api/libraryItems/",
+    libraryItem
   );
-
-  if (!categoryInDb) throw new Error(`Category was not found`);
-
-  const libraryItemInDb =
-    libraryItems.find((l) => l.id === libraryItem.id) || ({} as LibraryItems);
-
-  libraryItemInDb.title = libraryItem.title;
-  libraryItemInDb.type = libraryItem.type;
-  libraryItemInDb.category = categoryInDb;
-  libraryItemInDb.author = libraryItem.author;
-  libraryItemInDb.nbrPages = libraryItem.nbrPages;
-  libraryItemInDb.runTimeMinutes = libraryItem.runTimeMinutes;
-  libraryItemInDb.borrowDate = libraryItem.borrowDate;
-  libraryItemInDb.borrower = libraryItem.borrower;
-  libraryItemInDb.isBorrowable = libraryItem.isBorrowable;
-
-  if (!libraryItemInDb.id) {
-    libraryItemInDb.id = Date.now().toString();
-    libraryItems.push(libraryItemInDb);
-  }
-
-  return libraryItemInDb;
 }
 
 export function deleteLibraryItem(id: string) {
-  const itemsInDb = libraryItems.find((l) => l.id === id);
-
-  if (itemsInDb) libraryItems.splice(libraryItems.indexOf(itemsInDb), 1);
-
-  return itemsInDb;
+  return axios.delete("http://localhost:5588/api/libraryItems/" + id);
 }
-
-const libraryItems: LibraryItems[] = [
-  {
-    id: "1",
-    type: ItemsType.Book,
-    title: "Example Book",
-    author: "Author Name",
-    nbrPages: 300,
-    isBorrowable: true,
-    category: { id: "5b21ca3eeb7f6fbccd471820", name: "Academic" },
-    borrower: "Sofia Almroth",
-    borrowDate: new Date(),
-  },
-
-  {
-    id: "2",
-    type: ItemsType.DVD,
-    title: "Example DVD",
-    runTimeMinutes: 120,
-    isBorrowable: true,
-    category: { id: "5b21ca3eeb7f6fbccd471852", name: "Crime Novel" },
-    borrower: "Björn Hultqvist",
-    borrowDate: new Date(),
-  },
-
-  {
-    id: "3",
-    type: ItemsType.Audiobook,
-    title: "Example Audiobook",
-    runTimeMinutes: 500,
-    isBorrowable: true,
-    category: { id: "5b21ca3eeb7f6fbccd471814", name: "Romance" },
-  },
-
-  {
-    id: "4",
-    type: ItemsType.Encyclopedia,
-    title: "Example Encyclopedia",
-    author: "Author Name",
-    nbrPages: 1000,
-    isBorrowable: false,
-    category: { id: "5b21ca3eeb7f6fbccd471818", name: "Science-Fiction" },
-  },
-];
 
 // interface Book extends LibraryItem {
 //   author: string;

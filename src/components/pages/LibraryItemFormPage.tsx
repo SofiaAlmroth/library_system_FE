@@ -1,11 +1,9 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { getCategories } from "../../services/fakeCategoryService";
+import { Category, getCategories } from "../../services/fakeCategoryService";
 import { useEffect, useState } from "react";
 import {
   getLibraryItem,
-  ItemsType,
-  itemTypes,
-  LibraryItems,
+  LibraryItem,
   saveLibraryItem,
 } from "../../services/fakeLibraryItem";
 import { z } from "zod";
@@ -16,7 +14,12 @@ const schema = z.object({
   id: z.string().optional(),
   title: z.string().min(1, { message: "Title is required" }),
   categoryId: z.string().min(1, { message: "Category is required" }),
-  type: z.nativeEnum(ItemsType),
+  type: z.union([
+    z.literal("book"),
+    z.literal("audiobook"),
+    z.literal("encyclopedia"),
+    z.literal("dvd"),
+  ]),
   author: z.string().optional(),
   nbrPages: z.coerce
     .number()
@@ -28,14 +31,18 @@ const schema = z.object({
     .optional(),
   isBorrowable: z.boolean().default(false),
   borrower: z.string().optional(),
-  //borrowDate: z.date().optional(),
+  borrowDate: z.date().optional(),
 });
 
 type FormData = z.infer<typeof schema>;
 
+type ItemType = "dvd" | "book" | "audiobook" | "encyclopedia";
+
+const itemTypes: ItemType[] = ["dvd", "book", "audiobook", "encyclopedia"];
+
 function LibraryItemFormPage() {
   const { id } = useParams();
-  const [categories, setCategories] = useState(getCategories());
+  const [categories, setCategories] = useState<Category[]>([]);
   const navigate = useNavigate();
 
   const {
@@ -50,16 +57,22 @@ function LibraryItemFormPage() {
   });
 
   useEffect(() => {
-    if (!id || id === "new") return;
+    async function fetch() {
+      const { data: categories } = await getCategories();
+      setCategories(categories);
 
-    const libraryItem = getLibraryItem(id);
+      if (!id || id === "new") return;
 
-    if (!libraryItem) return navigate("/not-found");
+      const { data: libraryItem } = await getLibraryItem(id);
 
-    reset(mapToFormData(libraryItem));
+      if (!libraryItem) return navigate("/not-found");
+
+      reset(mapToFormData(libraryItem));
+    }
+    fetch();
   }, []);
 
-  function mapToFormData(libraryItem: LibraryItems): FormData {
+  function mapToFormData(libraryItem: LibraryItem): FormData {
     return {
       id: libraryItem.id,
       title: libraryItem.title,
@@ -69,13 +82,14 @@ function LibraryItemFormPage() {
       type: libraryItem.type,
       nbrPages: libraryItem.nbrPages,
       runTimeMinutes: libraryItem.runTimeMinutes,
+      borrower: libraryItem.borrower,
+      borrowDate: libraryItem.borrowDate,
     };
   }
 
-  function onSubmit(data: FormData) {
+  async function onSubmit(data: FormData) {
     console.log(data);
-
-    saveLibraryItem(data);
+    await saveLibraryItem(data);
     navigate("/books");
   }
 
@@ -143,8 +157,7 @@ function LibraryItemFormPage() {
           </label>
 
           {/* Author Field */}
-          {selectedType === ItemsType.Book ||
-          selectedType === ItemsType.Encyclopedia ? (
+          {selectedType === "book" || selectedType === "encyclopedia" ? (
             <div className="mb-3 form-control">
               <label className="label">
                 <span className="label-text">Author</span>
@@ -161,8 +174,7 @@ function LibraryItemFormPage() {
           ) : null}
 
           {/* Pages Field */}
-          {selectedType === ItemsType.Book ||
-          selectedType === ItemsType.Encyclopedia ? (
+          {selectedType === "book" || selectedType === "encyclopedia" ? (
             <div className="mb-3 form-control">
               <label className="label">
                 <span className="label-text">Pages</span>
@@ -179,8 +191,7 @@ function LibraryItemFormPage() {
           ) : null}
 
           {/* Runtime Field */}
-          {selectedType === ItemsType.DVD ||
-          selectedType === ItemsType.Audiobook ? (
+          {selectedType === "dvd" || selectedType === "audiobook" ? (
             <div className="mb-3 form-control">
               <label className="label">
                 <span className="label-text">Runtime</span>
@@ -199,7 +210,7 @@ function LibraryItemFormPage() {
           ) : null}
 
           {/* Is Borrowable Field */}
-          {selectedType !== ItemsType.Encyclopedia && (
+          {selectedType !== "encyclopedia" && (
             <div className="mb-3 form-control">
               <label className="label cursor-pointer">
                 <span className="label-text">Borrowable</span>
@@ -213,7 +224,7 @@ function LibraryItemFormPage() {
           )}
 
           {/* Borrower Field */}
-          {selectedType !== ItemsType.Encyclopedia && (
+          {selectedType !== "encyclopedia" && (
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Borrowed By</span>

@@ -1,18 +1,42 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import _ from "lodash";
-import { getLibraryItems } from "../../services/fakeLibraryItem";
+import {
+  deleteLibraryItem,
+  getLibraryItems,
+  LibraryItem,
+} from "../../services/fakeLibraryItem";
 import ItemsTable, { SortColumn } from "../ItemsTable";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const DEFAULT_SORTCOLUMN: SortColumn = { path: "category", order: "asc" };
 
 function LibraryItemsPage() {
-  const [libraryItems, setLibraryitems] = useState(getLibraryItems());
+  const [libraryItems, setLibraryitems] = useState<LibraryItem[]>([]);
   const [sortColumn, setSortColumn] = useState(DEFAULT_SORTCOLUMN);
 
-  function handleDelete(id: string) {
+  useEffect(() => {
+    async function fetch() {
+      const { data: libraryItems } = await getLibraryItems();
+      setLibraryitems(libraryItems);
+    }
+
+    fetch();
+  }, []);
+
+  async function handleDelete(id: string) {
+    const originalArray = libraryItems;
+
     const newArray = libraryItems.filter((item) => item.id !== id);
     setLibraryitems(newArray);
+
+    try {
+      await deleteLibraryItem(id);
+    } catch (error) {
+      console.log("Failed to delete the library item", error);
+      toast.error("Failed to delete the library item");
+      setLibraryitems(originalArray);
+    }
   }
 
   if (libraryItems.length === 0)

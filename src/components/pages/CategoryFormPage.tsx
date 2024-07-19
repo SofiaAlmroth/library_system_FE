@@ -20,6 +20,7 @@ function CategoryFormPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const {
+    setError,
     register,
     reset,
     handleSubmit,
@@ -30,13 +31,17 @@ function CategoryFormPage() {
   });
 
   useEffect(() => {
-    if (!id || id === "new") return;
+    async function fetch() {
+      if (!id || id === "new") return;
 
-    const category = getCategory(id);
+      const { data: category } = await getCategory(id);
 
-    if (!category) return navigate("/not-found");
+      if (!category) return navigate("/not-found");
 
-    reset(mapToFormData(category));
+      reset(mapToFormData(category));
+    }
+
+    fetch();
   }, []);
 
   function mapToFormData(category: Category): FormData {
@@ -46,10 +51,17 @@ function CategoryFormPage() {
     };
   }
 
-  function onSubmit(data: FormData) {
+  async function onSubmit(data: FormData) {
     console.log("data", data);
-    saveCategory(data);
-    navigate("/categories");
+
+    try {
+      await saveCategory(data);
+      navigate("/categories");
+    } catch (error: any) {
+      if (error.response.status === 400) {
+        setError("name", { message: error.response.data });
+      }
+    }
   }
 
   return (

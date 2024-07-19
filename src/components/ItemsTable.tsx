@@ -1,21 +1,21 @@
 import { Link } from "react-router-dom";
 import Table from "./Table";
 import { Column } from "./TableHeader";
-import { LibraryItems } from "../services/fakeLibraryItem";
+import { LibraryItem } from "../services/fakeLibraryItem";
 
 export interface SortColumn {
   path: string;
   order: "asc" | "desc";
 }
 interface Props {
-  libraryItems: LibraryItems[];
+  libraryItems: LibraryItem[];
   sortColumn: SortColumn;
   onSort(sortColumn: SortColumn): void;
   onDelete(id: string): void;
 }
 
 function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
-  const columns: Column<LibraryItems>[] = [
+  const columns: Column<LibraryItem>[] = [
     {
       path: "title",
       label: "Title",
@@ -50,55 +50,23 @@ function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
     {
       path: "borrowDetails",
       label: "Borrow Details",
-      content: (item: LibraryItems) => {
+      content: (item: LibraryItem) => {
         if (!item.borrower) {
           return <div>-</div>;
         } else {
           return (
             <>
               <div>{`${item.borrower}`}</div>
-              <div>
-                {item.borrowDate && item.borrowDate.toLocaleDateString()}
-              </div>
+              <div>{item.borrowDate && item.borrowDate.toString()}</div>
             </>
           );
         }
       },
     },
 
-    // {
-    //   key: "actions",
-    //   content: (item: LibraryItems) => {
-    //     if (!item.isBorrowable) return <p>Not Borrowable</p>;
-    //     if (item.borrower) {
-    //       return (
-    //         <div className="tooltip" data-tip="Return">
-    //           <button
-    //             onClick={() => checkInBook(item.id)}
-    //             className="btn btn-secondary w-24 btn-sm"
-    //           >
-    //             Check In
-    //           </button>
-    //         </div>
-    //       );
-    //     } else {
-    //       return (
-    //         <div className="tooltip" data-tip="Borrow">
-    //           <button
-    //             onClick={() => console.log(item)}
-    //             className="btn btn-secondary w-24 btn-sm"
-    //           >
-    //             Check Out
-    //           </button>
-    //         </div>
-    //       );
-    //     }
-    //   },
-    // },
-
     {
       key: "delete",
-      content: (item: LibraryItems) => (
+      content: (item: LibraryItem) => (
         <div className="tooltip" data-tip="Delete">
           <button
             onClick={() => onDelete(item.id)}
@@ -122,3 +90,33 @@ function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
 }
 
 export default ItemsTable;
+
+// {
+//   key: "actions",
+//   content: (item: LibraryItems) => {
+//     if (!item.isBorrowable) return <p>Not Borrowable</p>;
+//     if (item.borrower) {
+//       return (
+//         <div className="tooltip" data-tip="Return">
+//           <button
+//             onClick={() => checkInBook(item.id)}
+//             className="btn btn-secondary w-24 btn-sm"
+//           >
+//             Check In
+//           </button>
+//         </div>
+//       );
+//     } else {
+//       return (
+//         <div className="tooltip" data-tip="Borrow">
+//           <button
+//             onClick={() => console.log(item)}
+//             className="btn btn-secondary w-24 btn-sm"
+//           >
+//             Check Out
+//           </button>
+//         </div>
+//       );
+//     }
+//   },
+// },
