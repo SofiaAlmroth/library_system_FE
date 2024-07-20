@@ -1,6 +1,26 @@
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
 
 function NavBar() {
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) return;
+
+    const user = jwtDecode<User>(token);
+
+    setUser(user);
+  }, []);
+
   return (
     <div className="navbar bg-base-100 mb-6">
       <div className="flex-1">
@@ -18,22 +38,29 @@ function NavBar() {
             <li>
               <NavLink to={"/categories"}>Categories</NavLink>
             </li>
-            <li>
-              <details>
-                <summary>Profile</summary>
-                <ul className="bg-base-100 rounded-t-none p-2">
-                  <li>
-                    <NavLink to="/login">Login</NavLink>
-                  </li>
-                  {/* <li>
-                    <NavLink to="/logout">Logout</NavLink>
-                  </li> */}
-                  <li>
-                    <NavLink to="/register">Register</NavLink>
-                  </li>
-                </ul>
-              </details>
-            </li>
+            {!user && (
+              <>
+                <li>
+                  <NavLink to="/login">Login</NavLink>
+                </li>
+
+                <li>
+                  <NavLink to="/register">Register</NavLink>
+                </li>
+              </>
+            )}
+
+            {user && (
+              <>
+                <li>
+                  <NavLink to="/profile">{user.name}</NavLink>
+                </li>
+
+                <li>
+                  <NavLink to="/logout">Logout</NavLink>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>
