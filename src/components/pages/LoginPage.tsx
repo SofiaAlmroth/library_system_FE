@@ -13,6 +13,7 @@ type FormData = z.infer<typeof schema>;
 
 function LoginPage() {
   const {
+    setError,
     register,
     handleSubmit,
     formState: { errors, isValid },
@@ -21,10 +22,16 @@ function LoginPage() {
 
   async function onSubmit(data: FormData) {
     console.log("Submittet", data);
-    const { data: jwt } = await auth.login(data);
-    console.log(jwt);
 
-    //navigate("/books");
+    try {
+      const { data: jwt } = await auth.login(data);
+      localStorage.setItem("token", jwt);
+      navigate("/books");
+    } catch (error: any) {
+      if (error.response.status === 400) {
+        setError("email", { message: error.response.data });
+      }
+    }
   }
   return (
     <div className="flex flex-col min-h-screen justify-center items-center ">

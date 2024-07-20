@@ -14,6 +14,14 @@ interface Props {
   onDelete(id: string): void;
 }
 
+function getAbrivietedTitle(item: LibraryItem) {
+  const abrivietedTitle = item.title
+    .split(" ")
+    .map((titlePart) => titlePart[0])
+    .join("")
+    .toUpperCase();
+  return abrivietedTitle;
+}
 function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
   const columns: Column<LibraryItem>[] = [
     {
@@ -22,7 +30,7 @@ function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
       content: (item) => (
         <div className="tooltip" data-tip="Update">
           <Link to={`/books/${item.id}`} className="link-style ">
-            {item.title}
+            {`${item.title} (${getAbrivietedTitle(item)})`}
           </Link>
         </div>
       ),

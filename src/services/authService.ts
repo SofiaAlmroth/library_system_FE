@@ -5,8 +5,10 @@ interface UserLogin {
   password: string;
 }
 
+const API_BASEURL = "http://localhost:5588/api/auth/";
+
 export function login(user: UserLogin) {
-  return axios.post("http://localhost:5588/api/auth/", user);
+  return axios.post(API_BASEURL, user);
 }
 
 export default {

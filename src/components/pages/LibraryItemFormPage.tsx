@@ -44,6 +44,7 @@ function LibraryItemFormPage() {
   const { id } = useParams();
   const [categories, setCategories] = useState<Category[]>([]);
   const navigate = useNavigate();
+  const [isChecked, setChecked] = useState(false);
 
   const {
     register,
@@ -96,7 +97,7 @@ function LibraryItemFormPage() {
   }
 
   const selectedType = watch("type");
-
+  const borrower = watch("borrower");
   return (
     <>
       <div className="p-10">
@@ -222,8 +223,21 @@ function LibraryItemFormPage() {
             </div>
           )}
 
+          {/* Check box */}
+          <div className="form-control w-52">
+            <label className="label cursor-pointer">
+              <span className="label-text">Check out</span>
+              <input
+                checked={isChecked}
+                type="checkbox"
+                className="toggle toggle-primary"
+                onChange={() => setChecked(!isChecked)}
+              />
+            </label>
+          </div>
+
           {/* Borrower Field */}
-          {selectedType !== "ENCYCLOPEDIA" && (
+          {selectedType !== "ENCYCLOPEDIA" && isChecked && (
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Borrowed By</span>
