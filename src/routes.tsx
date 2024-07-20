@@ -7,6 +7,7 @@ import CategoryFormPage from "./components/pages/CategoryFormPage";
 import LoginPage from "./components/pages/LoginPage";
 import RegisterPage from "./components/pages/RegisterPage";
 import NotFoundPage from "./components/pages/NotFoundPage";
+import Logout from "./components/Logout";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
       { path: "/categories/:id", element: <CategoryFormPage /> },
     ],
   },
+  { path: "/logout", element: <Logout /> },
   { path: "/login", element: <LoginPage /> },
   { path: "/register", element: <RegisterPage /> },
 ]);
