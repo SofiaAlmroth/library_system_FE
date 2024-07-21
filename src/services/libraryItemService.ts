@@ -1,3 +1,4 @@
+import { BASE_URL } from "@constants";
 import { BookType, LibraryItem } from "@types";
 import axios from "axios";
 
@@ -14,7 +15,7 @@ interface LibraryFormData {
   runTimeMinutes?: number;
 }
 
-const API_BASEURL = "http://localhost:5588/api/libraryItems/";
+const API_BASEURL = `${BASE_URL}/api/libraryItems/`;
 
 export function getLibraryItems() {
   return axios.get<LibraryItem[]>(API_BASEURL);

@@ -1,8 +1,9 @@
 import axios from "axios";
 import { User, UserLogin } from "@types";
 import { jwtDecode } from "jwt-decode";
+import { BASE_URL } from "@constants";
 
-const API_BASEURL = "http://localhost:5588/api/auth/";
+const API_BASEURL = `${BASE_URL}/api/auth/`;
 const TOKEN_KEY = "token";
 
 async function login(user: UserLogin) {

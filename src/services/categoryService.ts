@@ -1,11 +1,12 @@
 import axios from "axios";
 import { Category } from "@types";
+import { BASE_URL } from "@constants";
 interface CategoryFormData {
   id?: string;
   name: string;
 }
 
-const API_BASEURL = "http://localhost:5588/api/categories/";
+const API_BASEURL = `${BASE_URL}/api/categories/`;
 
 export function getCategories() {
   return axios.get<Category[]>(API_BASEURL);
