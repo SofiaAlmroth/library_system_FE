@@ -1,25 +1,17 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import _ from "lodash";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { LibraryItem, SortColumn } from "@types";
-import { deleteLibraryItem, getLibraryItems } from "@services";
+import { SortColumn } from "@types";
+import { deleteLibraryItem } from "@services";
 import { ItemsTable } from "@components";
+import { useLibrarytems } from "@hooks";
 
 const DEFAULT_SORTCOLUMN: SortColumn = { path: "category.name", order: "asc" };
 
 function LibraryItemsPage() {
-  const [libraryItems, setLibraryitems] = useState<LibraryItem[]>([]);
   const [sortColumn, setSortColumn] = useState(DEFAULT_SORTCOLUMN);
-
-  useEffect(() => {
-    async function fetch() {
-      const { data: libraryItems } = await getLibraryItems();
-      setLibraryitems(libraryItems);
-    }
-
-    fetch();
-  }, []);
+  const { libraryItems, setLibraryitems } = useLibrarytems();
 
   async function handleDelete(id: string) {
     const originalArray = libraryItems;

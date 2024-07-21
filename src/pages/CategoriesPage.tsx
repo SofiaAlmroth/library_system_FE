@@ -1,24 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Category, Column, SortColumn } from "@types";
 import { Table } from "@components/common";
-import { deleteCategory, getCategories } from "@services";
+import { deleteCategory } from "@services";
+import { useCategories } from "@hooks";
 
 const DEFAULT_SORTCOLUMN: SortColumn = { path: "category", order: "asc" };
 
 function CategoriesPage() {
-  const [categories, setCategories] = useState<Category[]>([]);
   const [sortColumn, setSortColumn] = useState(DEFAULT_SORTCOLUMN);
-
-  useEffect(() => {
-    async function fetch() {
-      const { data: categories } = await getCategories();
-      setCategories(categories);
-    }
-
-    fetch();
-  }, []);
+  const { categories, setCategories } = useCategories();
 
   async function handleDelete(id: string) {
     const originalArray = categories;

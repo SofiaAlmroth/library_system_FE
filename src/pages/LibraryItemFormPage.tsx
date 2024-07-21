@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Category, LibraryItem } from "@types";
-import { getCategories, getLibraryItem, saveLibraryItem } from "@services";
+import { LibraryItem } from "@types";
+import { getLibraryItem, saveLibraryItem } from "@services";
+import { useCategories } from "@hooks";
 
 const schema = z.object({
   id: z.string().optional(),
@@ -38,7 +39,7 @@ const itemTypes: ItemType[] = ["DVD", "NOVEL", "AUDIOBOOK", "ENCYCLOPEDIA"];
 
 function LibraryItemFormPage() {
   const { id } = useParams();
-  const [categories, setCategories] = useState<Category[]>([]);
+  const { categories } = useCategories();
   const navigate = useNavigate();
   const [borrowerState, setBorrowerState] = useState<
     "checkedIn" | "checkedOut"
@@ -58,9 +59,6 @@ function LibraryItemFormPage() {
 
   useEffect(() => {
     async function fetch() {
-      const { data: categories } = await getCategories();
-      setCategories(categories);
-
       if (!id || id === "new") return;
 
       const { data: libraryItem } = await getLibraryItem(id);
@@ -235,34 +233,6 @@ function LibraryItemFormPage() {
               <div className="badge badge-success">Borrowable</div>
             </div>
           )}
-
-          {/* Check box
-          {selectedType !== "ENCYCLOPEDIA" && !borrower && (
-            <div className="form-control w-52">
-              <label className="label cursor-pointer">
-                <span className="label-text">Check out</span>
-                <input
-                  checked={isChecked}
-                  type="checkbox"
-                  className="checkbox checkbox-secondary"
-                  onChange={handleCheckboxChange}
-                />
-              </label>
-            </div>
-          )}
-          {selectedType !== "ENCYCLOPEDIA" && borrower && (
-            <div className="form-control w-52">
-              <label className="label cursor-pointer">
-                <span className="label-text">Check in</span>
-                <input
-                  checked={isChecked}
-                  type="checkbox"
-                  className="checkbox checkbox-secondary"
-                  onChange={handleCheckboxChange}
-                />
-              </label>
-            </div>
-          )} */}
 
           {/* Check In/Check Out */}
           {selectedType !== "ENCYCLOPEDIA" && (
