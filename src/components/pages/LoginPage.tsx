@@ -25,6 +25,7 @@ function LoginPage() {
 
     try {
       const { data: jwt } = await auth.login(data);
+
       localStorage.setItem("token", jwt);
       navigate("/books");
     } catch (error: any) {

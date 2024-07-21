@@ -24,7 +24,9 @@ function RegisterPage() {
   async function onSubmit(data: FormData) {
     console.log("Submittet", data);
     try {
-      await user.register(data);
+      const { headers } = await user.register(data);
+      const token = headers["x-auth-token"];
+      localStorage.setItem("token", token);
       navigate("/books");
     } catch (error: any) {
       if (error.response.status === 400) {

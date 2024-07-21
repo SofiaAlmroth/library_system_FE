@@ -44,13 +44,16 @@ function LibraryItemFormPage() {
   const { id } = useParams();
   const [categories, setCategories] = useState<Category[]>([]);
   const navigate = useNavigate();
-  const [isChecked, setChecked] = useState(false);
+  const [borrowerState, setBorrowerState] = useState<
+    "checkedIn" | "checkedOut"
+  >("checkedIn");
 
   const {
     register,
     reset,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors, isValid },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -69,6 +72,8 @@ function LibraryItemFormPage() {
       if (!libraryItem) return navigate("/not-found");
 
       reset(mapToFormData(libraryItem));
+
+      setBorrowerState(libraryItem.borrower ? "checkedOut" : "checkedIn");
     }
     fetch();
   }, []);
@@ -91,9 +96,21 @@ function LibraryItemFormPage() {
   }
 
   async function onSubmit(data: FormData) {
+    if (borrowerState === "checkedIn") {
+      data.borrower = "";
+      data.borrowDate = undefined;
+    }
     console.log(data);
     await saveLibraryItem(data);
     navigate("/books");
+  }
+
+  function handleBorrowerChange(state: "checkedIn" | "checkedOut") {
+    setBorrowerState(state);
+    if (state === "checkedIn") {
+      setValue("borrower", "");
+      setValue("borrowDate", undefined);
+    }
   }
 
   const selectedType = watch("type");
@@ -223,32 +240,81 @@ function LibraryItemFormPage() {
             </div>
           )}
 
-          {/* Check box */}
-          <div className="form-control w-52">
-            <label className="label cursor-pointer">
-              <span className="label-text">Check out</span>
-              <input
-                checked={isChecked}
-                type="checkbox"
-                className="toggle toggle-primary"
-                onChange={() => setChecked(!isChecked)}
-              />
-            </label>
-          </div>
-
-          {/* Borrower Field */}
-          {selectedType !== "ENCYCLOPEDIA" && isChecked && (
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Borrowed By</span>
+          {/* Check box
+          {selectedType !== "ENCYCLOPEDIA" && !borrower && (
+            <div className="form-control w-52">
+              <label className="label cursor-pointer">
+                <span className="label-text">Check out</span>
+                <input
+                  checked={isChecked}
+                  type="checkbox"
+                  className="checkbox checkbox-secondary"
+                  onChange={handleCheckboxChange}
+                />
               </label>
-              <input
-                {...register("borrower")}
-                type="borrower"
-                className="input input-bordered"
-              />
             </div>
           )}
+          {selectedType !== "ENCYCLOPEDIA" && borrower && (
+            <div className="form-control w-52">
+              <label className="label cursor-pointer">
+                <span className="label-text">Check in</span>
+                <input
+                  checked={isChecked}
+                  type="checkbox"
+                  className="checkbox checkbox-secondary"
+                  onChange={handleCheckboxChange}
+                />
+              </label>
+            </div>
+          )} */}
+
+          {/* Check In/Check Out */}
+          {selectedType !== "ENCYCLOPEDIA" && (
+            <div className="form-control w-52">
+              <label className="label">
+                <span className="label-text">Status</span>
+              </label>
+              <div className="flex items-center">
+                <label className="cursor-pointer label">
+                  <input
+                    type="radio"
+                    name="borrowStatus"
+                    className="radio radio-primary"
+                    checked={borrowerState === "checkedIn"}
+                    onChange={() => handleBorrowerChange("checkedIn")}
+                  />
+                  <span className="label-text ml-2">Check In</span>
+                </label>
+                <label className="cursor-pointer label ml-4">
+                  <input
+                    type="radio"
+                    name="borrowStatus"
+                    className="radio radio-secondary"
+                    checked={borrowerState === "checkedOut"}
+                    onChange={() => handleBorrowerChange("checkedOut")}
+                  />
+                  <span className="label-text ml-2">Check Out</span>
+                </label>
+              </div>
+            </div>
+          )}
+
+          {/* Borrower Field */}
+          {selectedType !== "ENCYCLOPEDIA" &&
+            borrowerState === "checkedOut" && (
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Borrowed By</span>
+                </label>
+                <input
+                  {...register("borrower")}
+                  type="text"
+                  className="input input-bordered"
+                  value={borrower || ""}
+                  onChange={(e) => setValue("borrower", e.target.value)}
+                />
+              </div>
+            )}
 
           <button
             type="submit"
