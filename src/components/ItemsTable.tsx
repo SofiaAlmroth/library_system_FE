@@ -20,6 +20,7 @@ function getAbrivietedTitle(item: LibraryItem) {
 function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
   const columns: Column<LibraryItem>[] = [
     {
+      key: "title",
       path: "title",
       label: "Title",
       content: (item) => (
@@ -33,12 +34,14 @@ function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
     { path: "category.name", label: "Category" },
     { path: "type", label: "Type" },
     {
+      key: "author",
       path: "author",
       label: "Author",
       content: (item) =>
         item.author ? <span>{item.author}</span> : <span>-</span>,
     },
     {
+      key: "nbrPages",
       path: "nbrPages",
       label: "Pages/Runtime",
       content: (item) =>
@@ -51,6 +54,7 @@ function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
         ),
     },
     {
+      key: "borrowDetails",
       path: "borrowDetails",
       label: "Borrow Details",
       content: (item: LibraryItem) => {

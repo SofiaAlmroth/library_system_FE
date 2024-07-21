@@ -30,6 +30,7 @@ function CategoriesPage() {
 
   const columns: Column<Category>[] = [
     {
+      key: "name",
       path: "name",
       label: "Name",
       content: (category) => (
