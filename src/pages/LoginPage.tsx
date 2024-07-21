@@ -21,8 +21,6 @@ function LoginPage() {
   const navigate = useNavigate();
 
   async function onSubmit(data: FormData) {
-    console.log("Submittet", data);
-
     try {
       await auth.login(data);
       navigate("/books");

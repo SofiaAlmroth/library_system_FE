@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LibraryItem } from "@types";
 import { getLibraryItem, saveLibraryItem } from "@services";
 import { useCategories } from "@hooks";
+import { toast } from "react-toastify";
 
 const schema = z.object({
   id: z.string().optional(),
@@ -90,13 +91,18 @@ function LibraryItemFormPage() {
   }
 
   async function onSubmit(data: FormData) {
-    if (borrowerState === "checkedIn") {
-      data.borrower = "";
-      data.borrowDate = undefined;
+    try {
+      if (borrowerState === "checkedIn") {
+        data.borrower = "";
+        data.borrowDate = undefined;
+      }
+
+      await saveLibraryItem(data);
+      navigate("/books");
+    } catch (error: any) {
+      console.log("Failed to save the library item", error);
+      toast.error("Failed to save the library item");
     }
-    console.log(data);
-    await saveLibraryItem(data);
-    navigate("/books");
   }
 
   function handleBorrowerChange(state: "checkedIn" | "checkedOut") {

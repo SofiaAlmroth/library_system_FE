@@ -22,7 +22,6 @@ function RegisterPage() {
   const navigate = useNavigate();
 
   async function onSubmit(data: FormData) {
-    console.log("Submittet", data);
     try {
       await user.register(data);
       navigate("/books");
