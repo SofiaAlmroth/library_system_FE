@@ -44,7 +44,7 @@ function NavBar() {
             {user && (
               <>
                 <li>
-                  <NavLink to="/profile">{user.name}</NavLink>
+                  <a>{user.name}</a>
                 </li>
 
                 <li>

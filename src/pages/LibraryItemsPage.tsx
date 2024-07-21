@@ -28,8 +28,8 @@ function LibraryItemsPage() {
     }
   }
 
-  if (libraryItems.length === 0)
-    return <p className="m-6">There are no books in the database</p>;
+  // if (libraryItems.length === 0)
+  //   return <p className="m-6">There are no books in the database</p>;
 
   const sortedItems = _.orderBy(
     libraryItems,

@@ -22,7 +22,7 @@ export interface Category {
   name: string;
 }
 
-export type BookType = "DVD" | "NOVEL" | "AUDIOBOOK" | "ENCYCLOPEDIA";
+export type BookType = "DVD" | "BOOK" | "AUDIOBOOK" | "ENCYCLOPEDIA";
 
 export interface LibraryItem {
   id: string;

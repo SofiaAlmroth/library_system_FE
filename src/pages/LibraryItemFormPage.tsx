@@ -13,7 +13,7 @@ const schema = z.object({
   title: z.string().min(1, { message: "Title is required" }),
   categoryId: z.string().min(1, { message: "Category is required" }),
   type: z.union([
-    z.literal("NOVEL"),
+    z.literal("BOOK"),
     z.literal("AUDIOBOOK"),
     z.literal("ENCYCLOPEDIA"),
     z.literal("DVD"),
@@ -34,9 +34,9 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-type ItemType = "DVD" | "NOVEL" | "AUDIOBOOK" | "ENCYCLOPEDIA";
+type ItemType = "DVD" | "BOOK" | "AUDIOBOOK" | "ENCYCLOPEDIA";
 
-const itemTypes: ItemType[] = ["DVD", "NOVEL", "AUDIOBOOK", "ENCYCLOPEDIA"];
+const itemTypes: ItemType[] = ["DVD", "BOOK", "AUDIOBOOK", "ENCYCLOPEDIA"];
 
 function LibraryItemFormPage() {
   const { id } = useParams();
@@ -177,7 +177,7 @@ function LibraryItemFormPage() {
           </label>
 
           {/* Author Field */}
-          {selectedType === "NOVEL" || selectedType === "ENCYCLOPEDIA" ? (
+          {selectedType === "BOOK" || selectedType === "ENCYCLOPEDIA" ? (
             <div className="mb-3 form-control">
               <label className="label">
                 <span className="label-text">Author</span>
@@ -194,7 +194,7 @@ function LibraryItemFormPage() {
           ) : null}
 
           {/* Pages Field */}
-          {selectedType === "NOVEL" || selectedType === "ENCYCLOPEDIA" ? (
+          {selectedType === "BOOK" || selectedType === "ENCYCLOPEDIA" ? (
             <div className="mb-3 form-control">
               <label className="label">
                 <span className="label-text">Pages</span>
