@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Category, LibraryItem } from "../../types";
-import { getCategories, getLibraryItem, saveLibraryItem } from "../../services";
+import { Category, LibraryItem } from "@types";
+import { getCategories, getLibraryItem, saveLibraryItem } from "@services";
 
 const schema = z.object({
   id: z.string().optional(),

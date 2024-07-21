@@ -8,8 +8,8 @@ import {
   LoginPage,
   NotFoundPage,
   RegisterPage,
-} from "./components/pages";
-import { Logout } from "./components";
+} from "@pages";
+import { Logout } from "@components";
 
 const router = createBrowserRouter([
   {

@@ -2,16 +2,17 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../../services";
+import { user } from "@services";
 
 const schema = z.object({
+  name: z.string(),
   email: z.string().min(1, { message: "Email is required" }),
   password: z.string().min(1, { message: "Password is required" }),
 });
 
 type FormData = z.infer<typeof schema>;
 
-function LoginPage() {
+function RegisterPage() {
   const {
     setError,
     register,
@@ -22,11 +23,10 @@ function LoginPage() {
 
   async function onSubmit(data: FormData) {
     console.log("Submittet", data);
-
     try {
-      const { data: jwt } = await auth.login(data);
-
-      localStorage.setItem("token", jwt);
+      const { headers } = await user.register(data);
+      const token = headers["x-auth-token"];
+      localStorage.setItem("token", token);
       navigate("/books");
     } catch (error: any) {
       if (error.response.status === 400) {
@@ -36,9 +36,21 @@ function LoginPage() {
   }
   return (
     <div className="flex flex-col min-h-screen justify-center items-center ">
-      <h1 className="text-5xl font-bold mb-5">Login</h1>
+      <h1 className="text-5xl font-bold mb-5">Register</h1>
       <div className="card shrink-0 w-full max-w-lg shadow-2xl bg-base-100">
         <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Name</span>
+            </label>
+            <input
+              {...register("name")}
+              type="name"
+              placeholder="name"
+              className="input input-bordered"
+            />
+          </div>
+
           <div className="form-control">
             <label className="label">
               <span className="label-text">Email</span>
@@ -78,4 +90,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default RegisterPage;

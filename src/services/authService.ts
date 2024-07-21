@@ -1,5 +1,5 @@
 import axios from "axios";
-import { UserLogin } from "../types";
+import { UserLogin } from "@types";
 
 const API_BASEURL = "http://localhost:5588/api/auth/";
 

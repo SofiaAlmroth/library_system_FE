@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
-import { Category } from "../../types";
-import { getCategory, saveCategory } from "../../services";
+import { Category } from "@types";
+import { getCategory, saveCategory } from "@services";
 
 const schema = z.object({
   id: z.string().optional(),

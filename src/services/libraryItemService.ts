@@ -1,4 +1,4 @@
-import { BookType, LibraryItem } from "../types";
+import { BookType, LibraryItem } from "@types";
 import axios from "axios";
 
 interface LibraryFormData {
