@@ -1,14 +1,9 @@
 import { useEffect, useState } from "react";
-import {
-  Category,
-  deleteCategory,
-  getCategories,
-} from "../../services/categoryService";
+import { deleteCategory, getCategories } from "../../services/categoryService";
 import { Link } from "react-router-dom";
-import { Column } from "../TableHeader";
-import { SortColumn } from "../ItemsTable";
 import { toast } from "react-toastify";
-import Table from "../Table";
+import Table from "../common/Table";
+import { Category, Column, SortColumn } from "../../types";
 
 const DEFAULT_SORTCOLUMN: SortColumn = { path: "category", order: "asc" };
 
@@ -26,8 +21,6 @@ function CategoriesPage() {
   }, []);
 
   async function handleDelete(id: string) {
-    // const categoryInUse = libraryItems.some((item) => item.category.id === id);
-    // if (categoryInUse) return console.log("cannot delete category");
     const originalArray = categories;
     const newArray = categories.filter((category) => category.id !== id);
     setCategories(newArray);

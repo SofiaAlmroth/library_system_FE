@@ -1,9 +1,5 @@
 import axios from "axios";
-
-interface UserLogin {
-  email: string;
-  password: string;
-}
+import { UserLogin } from "../types";
 
 const API_BASEURL = "http://localhost:5588/api/auth/";
 

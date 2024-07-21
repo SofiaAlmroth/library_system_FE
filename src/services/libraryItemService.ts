@@ -1,21 +1,7 @@
-import { Category } from "./categoryService";
+import { BookType, LibraryItem } from "../types";
 import axios from "axios";
 
-export type BookType = "DVD" | "NOVEL" | "AUDIOBOOK" | "ENCYCLOPEDIA";
-export interface LibraryItem {
-  id: string;
-  title: string;
-  type: BookType;
-  category: Category;
-  isBorrowable?: boolean;
-  borrower?: string;
-  borrowDate?: Date;
-  author?: string;
-  nbrPages?: number;
-  runTimeMinutes?: number;
-}
-
-export interface LibraryFormData {
+interface LibraryFormData {
   id?: string;
   type: BookType;
   title: string;

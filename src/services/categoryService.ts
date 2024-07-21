@@ -1,10 +1,5 @@
 import axios from "axios";
-
-export interface Category {
-  id: string;
-  name: string;
-}
-
+import { Category } from "../types";
 interface CategoryFormData {
   id?: string;
   name: string;

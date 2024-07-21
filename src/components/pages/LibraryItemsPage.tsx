@@ -3,11 +3,11 @@ import _ from "lodash";
 import {
   deleteLibraryItem,
   getLibraryItems,
-  LibraryItem,
 } from "../../services/libraryItemService";
-import ItemsTable, { SortColumn } from "../ItemsTable";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { LibraryItem, SortColumn } from "../../types";
+import ItemsTable from "../ItemsTable";
 
 const DEFAULT_SORTCOLUMN: SortColumn = { path: "category.name", order: "asc" };
 
@@ -39,8 +39,8 @@ function LibraryItemsPage() {
     }
   }
 
-  // if (libraryItems.length === 0)
-  //   return <p className="m-6">There are no books in the database</p>;
+  if (libraryItems.length === 0)
+    return <p className="m-6">There are no books in the database</p>;
 
   const sortedItems = _.orderBy(
     libraryItems,

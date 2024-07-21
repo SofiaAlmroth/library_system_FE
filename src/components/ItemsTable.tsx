@@ -1,12 +1,7 @@
 import { Link } from "react-router-dom";
-import Table from "./Table";
-import { Column } from "./TableHeader";
-import { LibraryItem } from "../services/libraryItemService";
+import Table from "./common/Table";
+import { Column, LibraryItem, SortColumn } from "../types";
 
-export interface SortColumn {
-  path: string;
-  order: "asc" | "desc";
-}
 interface Props {
   libraryItems: LibraryItem[];
   sortColumn: SortColumn;
