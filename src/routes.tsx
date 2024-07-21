@@ -1,13 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import LibraryItemsPage from "./components/pages/LibraryItemsPage";
-import LibraryItemFormPage from "./components/pages/LibraryItemFormPage";
-import CategoriesPage from "./components/pages/CategoriesPage";
-import CategoryFormPage from "./components/pages/CategoryFormPage";
-import LoginPage from "./components/pages/LoginPage";
-import RegisterPage from "./components/pages/RegisterPage";
-import NotFoundPage from "./components/pages/NotFoundPage";
-import Logout from "./components/Logout";
+import {
+  CategoriesPage,
+  CategoryFormPage,
+  LibraryItemFormPage,
+  LibraryItemsPage,
+  LoginPage,
+  NotFoundPage,
+  RegisterPage,
+} from "./components/pages";
+import { Logout } from "./components";
 
 const router = createBrowserRouter([
   {

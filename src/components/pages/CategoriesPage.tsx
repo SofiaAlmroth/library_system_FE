@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { deleteCategory, getCategories } from "../../services/categoryService";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import Table from "../common/Table";
 import { Category, Column, SortColumn } from "../../types";
+import { Table } from "../common";
+import { deleteCategory, getCategories } from "../../services";
 
 const DEFAULT_SORTCOLUMN: SortColumn = { path: "category", order: "asc" };
 

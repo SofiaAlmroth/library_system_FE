@@ -2,7 +2,7 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
-import user from "../../services/userService";
+import { user } from "../../services";
 
 const schema = z.object({
   name: z.string(),

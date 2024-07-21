@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import Table from "./common/Table";
 import { Column, LibraryItem, SortColumn } from "../types";
+import { Table } from "./common";
 
 interface Props {
   libraryItems: LibraryItem[];

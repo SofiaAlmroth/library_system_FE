@@ -2,12 +2,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Category,
-  getCategory,
-  saveCategory,
-} from "../../services/categoryService";
 import { useEffect } from "react";
+import { Category } from "../../types";
+import { getCategory, saveCategory } from "../../services";
 
 const schema = z.object({
   id: z.string().optional(),

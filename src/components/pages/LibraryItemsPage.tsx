@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
 import _ from "lodash";
-import {
-  deleteLibraryItem,
-  getLibraryItems,
-} from "../../services/libraryItemService";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { LibraryItem, SortColumn } from "../../types";
+import { deleteLibraryItem, getLibraryItems } from "../../services";
 import ItemsTable from "../ItemsTable";
 
 const DEFAULT_SORTCOLUMN: SortColumn = { path: "category.name", order: "asc" };

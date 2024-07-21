@@ -2,7 +2,7 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
-import auth from "../../services/authService";
+import { auth } from "../../services";
 
 const schema = z.object({
   email: z.string().min(1, { message: "Email is required" }),

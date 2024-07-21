@@ -1,14 +1,10 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { Category, getCategories } from "../../services/categoryService";
 import { useEffect, useState } from "react";
-import {
-  getLibraryItem,
-  LibraryItem,
-  saveLibraryItem,
-} from "../../services/libraryItemService";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Category, LibraryItem } from "../../types";
+import { getCategories, getLibraryItem, saveLibraryItem } from "../../services";
 
 const schema = z.object({
   id: z.string().optional(),
