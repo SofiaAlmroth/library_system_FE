@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LibraryItem } from "@types";
+import { BookType, LibraryItem } from "@types";
 import { getLibraryItem, saveLibraryItem } from "@services";
 import { useCategories } from "@hooks";
 import { toast } from "react-toastify";
@@ -34,9 +34,9 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-type ItemType = "DVD" | "BOOK" | "AUDIOBOOK" | "ENCYCLOPEDIA";
+//type ItemType = "DVD" | "BOOK" | "AUDIOBOOK" | "ENCYCLOPEDIA";
 
-const itemTypes: ItemType[] = ["DVD", "BOOK", "AUDIOBOOK", "ENCYCLOPEDIA"];
+const itemTypes: BookType[] = ["DVD", "BOOK", "AUDIOBOOK", "ENCYCLOPEDIA"];
 
 function LibraryItemFormPage() {
   const { id } = useParams();
@@ -76,7 +76,7 @@ function LibraryItemFormPage() {
   function mapToFormData(libraryItem: LibraryItem): FormData {
     return {
       id: libraryItem.id,
-      type: libraryItem.type as ItemType,
+      type: libraryItem.type as BookType,
       title: libraryItem.title,
       categoryId: libraryItem.category.id,
       author: libraryItem.author || "",
