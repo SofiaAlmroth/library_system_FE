@@ -26,7 +26,7 @@ This points to your backend running locally on port `5689`. If your backend runs
 If you have deployed the backend, replace the above with the deployed URL. For example:
 
 ```env
-REACT_APP_BACKEND_URL=https://your-backend-deployment-url.com
+REACT_APP_BACKEND_URL=https://library-system-90kk.onrender.com
 ```
 
 ## Tech Stack
