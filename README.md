@@ -8,6 +8,27 @@ The application is live and can be accessed here: [Library System Frontend](http
 
 **Note**: To view detailed information about a book or item, click on its title. 
 
+## Important Note
+
+This frontend application **requires the backend** to be running in order to work properly. Ensure that you have the backend set up and running locally or deployed to a server. You can find the backend repository [here](https://github.com/SofiaAlmroth/library_system_BE).
+
+If you do not have the backend running, the application will not be able to display or manage library items.
+
+Make sure to set the correct backend URL in the `.env` file using the following environment variable:
+
+```env
+REACT_APP_BACKEND_URL=http://localhost:5689
+```
+
+This points to your backend running locally on port `5689`. If your backend runs on a different port, update it accordingly.
+
+## For Production Deployment:
+If you have deployed the backend, replace the above with the deployed URL. For example:
+
+```env
+REACT_APP_BACKEND_URL=https://your-backend-deployment-url.com
+```
+
 ## Tech Stack
 
 - **React**: Frontend framework for building the user interface.
