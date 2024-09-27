@@ -108,7 +108,7 @@ npm install
 npm run dev
 ```
 
-4. Build the project for production:
+4. Build the project for production (only if you're preparing for deployment):
 ```bash
 npm run build
 ```
