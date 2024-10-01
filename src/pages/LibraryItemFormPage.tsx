@@ -34,7 +34,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-//type ItemType = "DVD" | "BOOK" | "AUDIOBOOK" | "ENCYCLOPEDIA";
+type BorrowerState = "checkedIn" | "checkedOut";
 
 const itemTypes: BookType[] = ["DVD", "BOOK", "AUDIOBOOK", "ENCYCLOPEDIA"];
 
@@ -42,9 +42,8 @@ function LibraryItemFormPage() {
   const { id } = useParams();
   const { categories } = useCategories();
   const navigate = useNavigate();
-  const [borrowerState, setBorrowerState] = useState<
-    "checkedIn" | "checkedOut"
-  >("checkedIn");
+  const [borrowerState, setBorrowerState] =
+    useState<BorrowerState>("checkedIn");
 
   const {
     register,
@@ -92,10 +91,10 @@ function LibraryItemFormPage() {
 
   async function onSubmit(data: FormData) {
     try {
-      if (borrowerState === "checkedIn") {
-        data.borrower = "";
-        data.borrowDate = undefined;
-      }
+      // if (borrowerState === "checkedIn") {
+      //   data.borrower = "";
+      //   data.borrowDate = undefined;
+      // }
 
       await saveLibraryItem(data);
       navigate("/books");
@@ -105,7 +104,7 @@ function LibraryItemFormPage() {
     }
   }
 
-  function handleBorrowerChange(state: "checkedIn" | "checkedOut") {
+  function handleBorrowerChange(state: BorrowerState) {
     setBorrowerState(state);
     if (state === "checkedIn") {
       setValue("borrower", "");
@@ -114,7 +113,7 @@ function LibraryItemFormPage() {
   }
 
   const selectedType = watch("type");
-  const borrower = watch("borrower");
+  //const borrower = watch("borrower");
   return (
     <>
       <div className="p-10">
@@ -282,8 +281,8 @@ function LibraryItemFormPage() {
                   {...register("borrower")}
                   type="text"
                   className="input input-bordered"
-                  value={borrower || ""}
-                  onChange={(e) => setValue("borrower", e.target.value)}
+                  //value={borrower}
+                  //onChange={(e) => setValue("borrower", e.target.value)}
                 />
               </div>
             )}

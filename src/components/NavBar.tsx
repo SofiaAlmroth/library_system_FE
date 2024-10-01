@@ -8,51 +8,49 @@ function NavBar() {
 
   useEffect(() => {
     const user = auth.getCurrentUser();
-
     setUser(user);
   }, []);
 
   return (
     <div className="navbar bg-base-100 mb-6">
       <div className="flex-1">
-        <NavLink to="/books" className="btn btn-ghost text-3xl">
-          Intensive Library
+        <NavLink to="/books" className="text-7xl font-extrabold">
+          LM
         </NavLink>
       </div>
 
       <div>
         <div className="flex-none">
-          <ul className="menu menu-horizontal px-1">
-            <li>
-              <NavLink to={"/books"}>Books</NavLink>
-            </li>
-            <li>
-              <NavLink to={"/categories"}>Categories</NavLink>
-            </li>
+          <div className="flex gap-x-6 text-2xl font-medium">
+            <NavLink to="/books" className="hover-effect">
+              Books
+            </NavLink>
+
+            <NavLink to="/categories" className="hover-effect">
+              Categories
+            </NavLink>
+
             {!user && (
               <>
-                <li>
-                  <NavLink to="/login">Login</NavLink>
-                </li>
+                <NavLink to="/login" className="hover-effect">
+                  Login
+                </NavLink>
 
-                <li>
-                  <NavLink to="/register">Register</NavLink>
-                </li>
+                <NavLink to="/register" className="hover-effect">
+                  Register
+                </NavLink>
               </>
             )}
 
             {user && (
               <>
-                <li>
-                  <a>{user.name}</a>
-                </li>
-
-                <li>
-                  <NavLink to="/logout">Logout</NavLink>
-                </li>
+                <span className="font-bold">{user.name}</span>
+                <NavLink to="/logout" className="hover-effect">
+                  Logout
+                </NavLink>
               </>
             )}
-          </ul>
+          </div>
         </div>
       </div>
     </div>

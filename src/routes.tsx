@@ -10,6 +10,7 @@ import {
   RegisterPage,
 } from "@pages";
 import { Logout } from "@components";
+import Home from "@components/Home";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <NotFoundPage />,
     children: [
+      { index: true, element: <Home /> },
       { path: "/books", element: <LibraryItemsPage /> },
       { path: "/books/:id", element: <LibraryItemFormPage /> },
       { path: "/categories", element: <CategoriesPage /> },

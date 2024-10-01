@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
-import { Category } from "@types";
+//import { Category } from "@types";
 import { getCategory, saveCategory } from "@services";
 
 const schema = z.object({
@@ -35,18 +35,18 @@ function CategoryFormPage() {
 
       if (!category) return navigate("/not-found");
 
-      reset(mapToFormData(category));
+      reset(category);
     }
 
     fetch();
   }, []);
 
-  function mapToFormData(category: Category): FormData {
-    return {
-      id: category.id,
-      name: category.name,
-    };
-  }
+  // function mapToFormData(category: Category): FormData {
+  //   return {
+  //     id: category.id,
+  //     name: category.name,
+  //   };
+  // }
 
   async function onSubmit(data: FormData) {
     console.log("data", data);

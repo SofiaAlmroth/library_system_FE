@@ -9,3 +9,55 @@
 .link-style:hover {
   color: rgb(43, 43, 82);
 }
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+/* Define specific classes for different font weights */
+
+.poppins-regular {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+}
+
+.poppins-medium {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+}
+
+.poppins-bold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+}
+
+.navbar a {
+  position: relative;
+  color: black;
+  padding: 0 0.5em 0.25em;
+  text-transform: uppercase;
+  font-weight: bold;
+  overflow: hidden;
+  transition: color 0.3s;
+}
+
+.navbar a:hover {
+  color: #13049b;
+}
+
+.hover-effect::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px; /* Thickness of the underline effect */
+  background: #13049b; /* The color of the hover background effect */
+  transform: scaleX(0); /* Start with the line hidden horizontally */
+  transform-origin: left; /* The line grows from the left side */
+  transition: transform 0.3s ease;
+}
+
+.hover-effect:hover::before {
+  transform: scaleX(1); /* Expands the line to full width on hover */
+}
