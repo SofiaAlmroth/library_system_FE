@@ -81,7 +81,7 @@ function ItemsTable({ libraryItems, sortColumn, onSort, onDelete }: Props) {
         <div className="tooltip" data-tip="Delete">
           <button
             onClick={() => onDelete(item.id)}
-            className="btn btn-circle btn-error btn-sm"
+            className="btn btn-circle btn-error btn-sm text-[#ffffff]"
           >
             X
           </button>

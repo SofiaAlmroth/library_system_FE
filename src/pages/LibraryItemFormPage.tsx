@@ -42,6 +42,7 @@ function LibraryItemFormPage() {
   const { id } = useParams();
   const { categories } = useCategories();
   const navigate = useNavigate();
+  const [name, setName] = useState("");
   const [borrowerState, setBorrowerState] =
     useState<BorrowerState>("checkedIn");
 
@@ -66,6 +67,8 @@ function LibraryItemFormPage() {
       if (!libraryItem) return navigate("/not-found");
 
       reset(mapToFormData(libraryItem));
+
+      setName(libraryItem.title);
 
       setBorrowerState(libraryItem.borrower ? "checkedOut" : "checkedIn");
     }
@@ -117,7 +120,9 @@ function LibraryItemFormPage() {
   return (
     <>
       <div className="p-10">
-        <h1 className="text-3xl font-bold mb-3">Library Item Form {id}</h1>
+        <h1 className="text-3xl font-bold mb-3">
+          {id === "new" ? "New Library Item" : `Library Item Form: ${name}`}
+        </h1>
         <form onSubmit={handleSubmit(onSubmit)} className="w-2/3">
           {/* Type Field */}
           <label className="mb-3 form-control ">
@@ -289,7 +294,7 @@ function LibraryItemFormPage() {
 
           <button
             type="submit"
-            className="btn btn-primary mt-6"
+            className="btn btn-primary mt-6 text-[#ffffff]"
             disabled={!isValid}
           >
             Save

@@ -14,8 +14,7 @@ function NavBar() {
   return (
     <div className="navbar bg-base-100 my-6">
       <div className="flex-1">
-        <NavLink to="/">
-          {" "}
+        <NavLink to="/books">
           <img
             src="/logo.svg" // Reference the SVG file in the public folder
             alt="The Library Logo"
@@ -49,7 +48,7 @@ function NavBar() {
 
             {user && (
               <>
-                <span className="font-bold">{user.name}</span>
+                <span className="font-bold uppercase">{user.name}</span>
                 <NavLink to="/logout" className="hover-effect">
                   Logout
                 </NavLink>

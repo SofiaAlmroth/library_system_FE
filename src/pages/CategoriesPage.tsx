@@ -48,7 +48,7 @@ function CategoriesPage() {
         <div className="tooltip" data-tip="Delete">
           <button
             onClick={() => handleDelete(category.id)}
-            className="btn btn-circle btn-error btn-sm"
+            className="btn btn-circle btn-error btn-sm text-[#ffffff]"
           >
             X
           </button>
@@ -67,7 +67,10 @@ function CategoriesPage() {
             onSort={setSortColumn}
             sortColumn={sortColumn}
           />
-          <Link to="/categories/new" className="btn btn-primary mt-4">
+          <Link
+            to="/categories/new"
+            className="btn btn-primary mt-4 text-[#ffffff]"
+          >
             Add Category
           </Link>
         </div>

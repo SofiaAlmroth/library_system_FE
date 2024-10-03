@@ -9,15 +9,15 @@ export default {
     themes: [
       {
         mytheme: {
-          primary: "#10b981",
-          secondary: "#a78bfa",
+          primary: "#fc00b0", // Change primary to the pink color
+          secondary: "#fc6805", // Change secondary to the orange color
           accent: "#1d4ed8",
           neutral: "#d6d3d1",
           "base-100": "#f5f5f4",
           info: "#3730a3",
           success: "#115e59",
           warning: "#eab308",
-          error: "#f43f5e",
+          error: "#be123c",
         },
       },
     ],

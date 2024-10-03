@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 //import { Category } from "@types";
 import { getCategory, saveCategory } from "@services";
 
@@ -16,6 +16,7 @@ type FormData = z.infer<typeof schema>;
 function CategoryFormPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [name, setName] = useState("");
   const {
     setError,
     register,
@@ -36,6 +37,8 @@ function CategoryFormPage() {
       if (!category) return navigate("/not-found");
 
       reset(category);
+
+      setName(category.name);
     }
 
     fetch();
@@ -63,7 +66,9 @@ function CategoryFormPage() {
 
   return (
     <div className="p-10">
-      <h1 className="text-3xl font-bold mb-3">Category Form {id}</h1>
+      <h1 className="text-3xl font-bold mb-3">
+        {id === "new" ? "New Category" : `Category Form: ${name}`}
+      </h1>
       <form onSubmit={handleSubmit(onSubmit)} className="w-2/3">
         <div className="mb-3 form-control">
           <label className="label">
@@ -79,7 +84,10 @@ function CategoryFormPage() {
             <p className="text-error p-1">{errors.name.message}</p>
           )}
         </div>
-        <button className="btn btn-primary mt-3" disabled={!isValid}>
+        <button
+          className="btn btn-primary mt-3 text-[#ffffff]"
+          disabled={!isValid}
+        >
           Save
         </button>
       </form>

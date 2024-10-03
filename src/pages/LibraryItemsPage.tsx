@@ -47,7 +47,7 @@ function LibraryItemsPage() {
             onDelete={handleDelete}
             libraryItems={sortedItems}
           />
-          <Link to="/books/new" className="btn btn-primary mt-4">
+          <Link to="/books/new" className="btn btn-primary mt-4 text-[#ffffff]">
             Add Library Item
           </Link>
         </div>
