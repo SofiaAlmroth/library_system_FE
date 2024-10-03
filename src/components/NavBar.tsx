@@ -12,10 +12,15 @@ function NavBar() {
   }, []);
 
   return (
-    <div className="navbar bg-base-100 mb-6">
+    <div className="navbar bg-base-100 my-6">
       <div className="flex-1">
-        <NavLink to="/books" className="text-7xl font-extrabold">
-          LM
+        <NavLink to="/">
+          {" "}
+          <img
+            src="/logo.svg" // Reference the SVG file in the public folder
+            alt="The Library Logo"
+            className="h-24" // Adjust height/width as needed
+          />
         </NavLink>
       </div>
 

@@ -1,11 +1,13 @@
 import "@fortawesome/fontawesome-free/css/all.css";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { NavBar } from "./components";
 
 function App() {
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
   return (
     <>
-      <NavBar />
+      {!isHomePage && <NavBar />}
       <Outlet />
     </>
   );

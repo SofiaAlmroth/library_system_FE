@@ -1,0 +1,112 @@
+.home-container {
+  position: relative;
+  height: 100vh;
+  background-image: url("/background6.jpg"); /* Correct path */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 0; /* Ensures it's in the back */
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Horizontally center items */
+}
+
+/* Frosted glass effect for the box */
+.frosted-box {
+  background-color: #e2e2e24d; /* Semi-transparent white */
+  backdrop-filter: blur(3px);
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; /* Stack the content vertically */
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+}
+
+.title {
+  color: black;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin-top: 20px;
+}
+
+.btn-custom {
+  padding: 15px 30px;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  font-weight: medium;
+  border-radius: 2px; /* Rounded corners */
+  background-color: #ffffff4d; /* Semi-transparent white background */
+  color: white; /* White text */
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth transitions for hover */
+  flex: 1; /* Make both buttons take equal space */
+  width: 150px; /* Set a maximum width */
+}
+
+/* Hover effect */
+.btn-custom:hover {
+  background-color: rgba(255, 255, 255, 0.6); /* More opaque on hover */
+  color: black; /* Switch text to black on hover */
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .btn-custom {
+    max-width: 120px; /* Shrink max width on smaller screens */
+    padding: 12px 20px; /* Adjust padding for smaller screens */
+    font-size: 1rem; /* Adjust font size for smaller screens */
+  }
+
+  /* Make both buttons full width in small screens */
+  .button-container {
+    flex-direction: column; /* Stack buttons vertically on mobile */
+    align-items: center; /* Center align them */
+  }
+
+  .btn-custom {
+    width: 100%; /* Make the buttons full width */
+    max-width: none; /* Remove the max width to allow them to take full width */
+  }
+}
+
+.btn-primary-custom {
+  background-color: #fc6805;
+}
+
+.btn-primary-custom:hover {
+  background-color: #fc68057c;
+}
+
+/* Secondary Button Custom Styling */
+.btn-secondary-custom {
+  background-color: #fc00b0ec; /* Light purple on initial load */
+}
+
+.btn-secondary-custom:hover {
+  background-color: #fc00b07a; /* Darker purple on hover */
+}
+
+img {
+  height: 100px; /* Adjust as necessary */
+  margin-bottom: 20px; /* Space between the logo and title */
+  display: block;
+}
