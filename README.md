@@ -27,9 +27,10 @@ npm run dev
 ```
 
 Update your .env with your backend URL:
-
+```ini
 REACT_APP_BACKEND_URL=http://localhost:5689
 Or use your deployed backend URL.
+```
 
 ## Deployment
 Can be deployed to Vercel, Netlify, Render, etc. Remember to include your REACT_APP_BACKEND_URL in the deployed environment.
