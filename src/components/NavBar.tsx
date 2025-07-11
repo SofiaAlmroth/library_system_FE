@@ -12,20 +12,16 @@ function NavBar() {
   }, []);
 
   return (
-    <div className="navbar bg-base-100 my-6">
+    <div className="navbar bg-base-100 m-3">
       <div className="flex-1">
         <NavLink to="/books">
-          <img
-            src="/logo.svg" // Reference the SVG file in the public folder
-            alt="The Library Logo"
-            className="h-24" // Adjust height/width as needed
-          />
+          <img src="/logo.svg" alt="The Library Logo" className="h-16" />
         </NavLink>
       </div>
 
-      <div>
+      <div className="pr-12">
         <div className="flex-none">
-          <div className="flex gap-x-6 text-2xl font-medium">
+          <div className="flex gap-x-6">
             <NavLink to="/books" className="hover-effect">
               Books
             </NavLink>
@@ -48,7 +44,9 @@ function NavBar() {
 
             {user && (
               <>
-                <span className="font-bold uppercase">{user.name}</span>
+                <NavLink to="/profile" className="hover-effect">
+                  {user.name}
+                </NavLink>
                 <NavLink to="/logout" className="hover-effect">
                   Logout
                 </NavLink>

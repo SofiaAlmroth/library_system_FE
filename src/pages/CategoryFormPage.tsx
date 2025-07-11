@@ -44,13 +44,6 @@ function CategoryFormPage() {
     fetch();
   }, []);
 
-  // function mapToFormData(category: Category): FormData {
-  //   return {
-  //     id: category.id,
-  //     name: category.name,
-  //   };
-  // }
-
   async function onSubmit(data: FormData) {
     console.log("data", data);
 

@@ -7,8 +7,13 @@ const API_BASEURL = `${BASE_URL}/api/auth/`;
 const TOKEN_KEY = "token";
 
 async function login(user: UserLogin) {
-  const { data: token } = await axios.post(API_BASEURL, user);
-  localStorage.setItem(TOKEN_KEY, token);
+  try {
+    const { data: token } = await axios.post(API_BASEURL, user);
+    localStorage.setItem(TOKEN_KEY, token);
+  } catch (error: any) {
+    console.error("Login failed:", error);
+    throw error; // eller hantera det snyggare i din komponent
+  }
 }
 
 function loginWithJwt(token: string) {

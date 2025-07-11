@@ -1,33 +1,33 @@
 .home-container {
   position: relative;
   height: 100vh;
-  background-image: url("/background6.jpg"); /* Correct path */
+  background-image: url("/background6.jpg");
   background-size: cover;
   background-position: center;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  z-index: 0; /* Ensures it's in the back */
+  z-index: 0;
 }
 
 .content {
   position: relative;
   z-index: 1;
   display: flex;
-  flex-direction: column; /* Stack items vertically */
-  align-items: center; /* Horizontally center items */
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Frosted glass effect for the box */
 .frosted-box {
-  background-color: #e2e2e24d; /* Semi-transparent white */
+  background-color: #e2e2e24d;
   backdrop-filter: blur(3px);
   padding: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column; /* Stack the content vertically */
+  flex-direction: column;
 }
 
 .content {
@@ -53,38 +53,37 @@
   font-size: 1.25rem;
   text-transform: uppercase;
   font-weight: medium;
-  border-radius: 2px; /* Rounded corners */
-  background-color: #ffffff4d; /* Semi-transparent white background */
-  color: white; /* White text */
+  border-radius: 2px;
+  background-color: #ffffff4d;
+  color: white;
   cursor: pointer;
-  transition: all 0.3s ease; /* Smooth transitions for hover */
-  flex: 1; /* Make both buttons take equal space */
-  width: 150px; /* Set a maximum width */
+  transition: all 0.3s ease;
+  flex: 1;
+  width: 150px;
 }
 
 /* Hover effect */
 .btn-custom:hover {
-  background-color: rgba(255, 255, 255, 0.6); /* More opaque on hover */
-  color: black; /* Switch text to black on hover */
+  background-color: rgba(255, 255, 255, 0.6);
+  color: black;
   font-weight: bold;
 }
 
 @media (max-width: 768px) {
   .btn-custom {
-    max-width: 120px; /* Shrink max width on smaller screens */
-    padding: 12px 20px; /* Adjust padding for smaller screens */
-    font-size: 1rem; /* Adjust font size for smaller screens */
+    max-width: 120px;
+    padding: 12px 20px;
+    font-size: 1rem;
   }
 
-  /* Make both buttons full width in small screens */
   .button-container {
-    flex-direction: column; /* Stack buttons vertically on mobile */
-    align-items: center; /* Center align them */
+    flex-direction: column;
+    align-items: center;
   }
 
   .btn-custom {
-    width: 100%; /* Make the buttons full width */
-    max-width: none; /* Remove the max width to allow them to take full width */
+    width: 100%;
+    max-width: none;
   }
 }
 
@@ -98,15 +97,15 @@
 
 /* Secondary Button Custom Styling */
 .btn-secondary-custom {
-  background-color: #fc00b0ec; /* Light purple on initial load */
+  background-color: #fc00b0ec;
 }
 
 .btn-secondary-custom:hover {
-  background-color: #fc00b07a; /* Darker purple on hover */
+  background-color: #fc00b07a;
 }
 
 img {
-  height: 100px; /* Adjust as necessary */
-  margin-bottom: 20px; /* Space between the logo and title */
+  height: 100px;
+  margin-bottom: 20px;
   display: block;
 }
