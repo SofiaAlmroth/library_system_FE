@@ -19,10 +19,13 @@ Backend repo: [Library System Backend](https://github.com/SofiaAlmroth/library_s
 - Manage categories (create, update, delete)
 
 ## Setup
+```bash
 git clone https://github.com/SofiaAlmroth/library_system_FE.git
 cd library_system_FE
 npm install
 npm run dev
+```
+
 Update your .env with your backend URL:
 
 REACT_APP_BACKEND_URL=http://localhost:5689
